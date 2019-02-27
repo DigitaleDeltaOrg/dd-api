@@ -1,0 +1,198 @@
+#%RAML 1.0
+title: Digitale Delta - Operational (DD-OPER) API
+version: 2.0.1
+securitySchemes:
+  basic:
+    type: Basic Authentication
+
+baseUri: http://api.rws.nl/dl/
+
+mediaType: [ application/json ]
+
+description: Digital Delta - Operational API - version 2.0.1
+documentation:
+  - title: Introduction
+    content: !include documentation/dd-oper/Introduction.md
+
+  - title: The API specification
+    content: !include documentation/dd-oper/The_API_Specification.md
+
+  - title: Modification History
+    content: !include documentation/dd-oper/Document_History.md
+
+  - title: Todo
+    content: |
+
+# HTTP protocol is included as (optional) protocol for internal use. HTTPS support is mandatory for external communication.
+protocols: [HTTP, HTTPS]
+
+uses:
+    DD-T: libraries/dd-base-types.raml
+    DDOPER-T: libraries/ddoper-base-types.raml
+    GENERIC-RESP: libraries/generic-response-types.raml
+    DDOPER-RESP: libraries/ddoper-response-types.raml
+
+types:
+# All data types are defined in external files (see above) so they can be shared between DD and DD-OPER API.
+
+traits:
+  #
+  # Responses Error Codes
+  #
+  has400-InvalidRequestError:
+    responses:
+      400:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include examples/dd-oper/dd-oper-error-response.json
+  has404-NotFoundError:
+    responses:
+      404:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include examples/dd-oper/dd-oper-error-response.json
+  has500-ServerError:
+    responses:
+      500:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include examples/dd-oper/dd-oper-error-response.json
+
+# The resources:
+/dd-oper/2.0:
+  description:
+    The 'dd-oper' section in the url is mandatory as it is used to distinguish similar endpoints in the DD API   (/dd/2.0).
+
+# ########################################################
+  /quantities:
+    get:
+      description: |
+        Retrieves full list of available quantities, including corresponding aspect sets.
+      queryParameters:
+      responses:
+        200:
+          description: |
+            Succesfully retrieved resource
+          body:
+            application/json:
+              type: DDOPER-RESP.QuantityListResponse
+              example: !include examples/dd-oper/dd-oper-quantitylist-response.json
+
+    /{quantityName}:
+      uriParameters:
+        quantityName:
+          type: DD-T.QuantityName
+      get:
+        description: Request a specific quantity by its name.
+        responses:
+          200:
+            body:
+              application/json:
+                type: DDOPER-RESP.QuantityResponse
+                example: !include examples/dd-oper/dd-oper-quantity-response.json
+      is: [has400-InvalidRequestError, has404-NotFoundError]
+
+      /locations:
+        get:
+          description: |
+            Request the list of locations (within the NL.RWS.WM namespace) at which a specific quantity is available.
+          queryParameters:
+          responses:
+            200:
+              body:
+                application/json:
+                  type: DDOPER-RESP.LocationListResponse
+                  example: !include examples/dd-oper/dd-oper-locationslist-response.json
+
+# ########################################################
+  /locations:
+    get:
+      description: |
+        The Locations endpoint returns the complete list of locations within the NL.RWS.WM namespace that the Provider offers.
+        There are no filterings options.
+      queryParameters:
+      responses:
+        200:
+          body:
+            application/json:
+              type: DDOPER-RESP.LocationListResponse
+              example: !include examples/dd-oper/dd-oper-locationslist-response.json
+
+    /{locationName}:
+      uriParameters:
+        locationName:
+          type: DD-T.LocationName
+      get:
+        description: |
+          Request a specific location by its matching name (case-sensitive match)
+        responses:
+          200:
+            body:
+              application/json:
+                type: DDOPER-RESP.LocationResponse
+                example: !include examples/dd-oper/dd-oper-location-response.json
+      is: [has400-InvalidRequestError, has404-NotFoundError]
+
+######################################################
+      /quantities:
+        get:
+          description: |
+            The quantities endpoint returns the list of quantities available at the selected location.
+          queryParameters:
+          responses:
+            200:
+              body:
+                application/json:
+                  type: DDOPER-RESP.QuantityListResponse
+                  example: !include examples/dd-oper/dd-oper-quantitylist-response.json
+
+        /{quantityName}:
+          uriParameters:
+            quantityName:
+              type: DD-T.QuantityName
+          get:
+            description: Request a specific quantity by its name (case-sensitive match).
+            responses:
+              200:
+                body:
+                  application/json:
+                    type: DDOPER-RESP.QuantityResponse
+                    example: !include examples/dd-oper/dd-oper-quantity-response.json
+          is: [has400-InvalidRequestError, has404-NotFoundError]
+
+############################################################
+          /timeseries:
+            get:
+              description: |
+                Retrieve resource for the selected location and quantity.
+              queryParameters:
+                startTime:
+                  type: DD-T.StartTime
+                  required: true
+                endTime:
+                  type: DD-T.EndTime
+                  required: false
+                intervalLength:
+                  type: DD-T.IntervalLength
+                  required: false
+                  default: 10min
+                aspectSet:
+                  type: DD-T.AspectSetName
+                  required: false
+                  default: standard
+                process:
+                  type: DD-T.ProcessName
+                  required: true
+                  default: measurement
+              responses:
+                200:
+                  description: |
+                    Succesfully retrieved timeseries
+                  body:
+                    application/json:
+                      type: DDOPER-RESP.TimeseriesListResponse
+                      example: !include examples/dd-oper/dd-oper-timeseries-full-response.json
+            is: [has400-InvalidRequestError, has500-ServerError]

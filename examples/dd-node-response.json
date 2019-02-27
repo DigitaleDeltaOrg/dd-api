@@ -1,0 +1,10 @@
+{
+		"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz890",
+		"baseUrl": "https://www.rws.nl",
+		"name": "Matroos 2",
+		"description": "......",
+		"provider": {
+			"name": "Matroos",
+			"supportUrl": "tbd http://www.rws.nl/support/matroos"
+		}
+}

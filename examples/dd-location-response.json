@@ -1,0 +1,19 @@
+{
+	"type": "Feature",
+	"geometry": {
+		"type": "Point",
+		"coordinates": [
+			4.123456,
+			52.123456
+		]
+	},
+	"properties": {
+		"locationName": "Maarssen.Oostkanaaldijk",
+		"locationNameSpace": "NL.RWS.WM",
+		"crsName": "ETRS89"
+	},
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "tbd http://www.rws.nl/support/matroos"
+	}
+}

@@ -1,0 +1,90 @@
+{
+	"node": {
+		"name": "LMW-Next",
+		"baseUrl": "https://www.rws.nl",
+		"description": "......"
+	},
+	"source": {
+		"process": "forecast",
+		"institution": {
+			"name": "RWS",
+			"description": "...."
+		}
+	},
+	"location": {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [
+				4.750563993334143,
+				53.02409080390675
+			]
+		},
+		"properties": {
+			"locationId": "NL.RWS.WM.Maarssen.Oostkanaaldijk",
+			"locationCode": "OSTKDK",
+			"locationName": "Maarssen.Oostkanaaldijk",
+			"locationNameSpace": "NL.RWS.WM",
+			"crsName": "ETRS89"
+		}
+	},
+	"observationType": {
+		"id": "WaterLevel",
+		"quantity": "WaterLevel",
+		"unit": "m",
+		"compartment": "OW"
+	},
+	"startTime": "2010-12-12T16:00:00Z",
+	"endTime": "2010-12-12T21:00:00Z",
+	"events": [
+		{
+			"timeStamp": "2010-12-12T16:00:00Z",
+			"startTime": "2010-12-12T15:30:00Z",
+			"endTime": "2010-12-12T16:29:59Z",
+			"resultTime": "2010-12-12T16:35:00Z",
+			"value": 0.46
+		},
+		{
+			"timeStamp": "2010-12-12T17:00:00Z",
+			"startTime": "2010-12-12T16:30:00Z",
+			"endTime": "2010-12-12T17:29:59Z",
+			"resultTime": "2010-12-12T17:35:00Z",
+			"value": 0.4
+		},
+		{
+			"timeStamp": "2010-12-12T18:00:00Z",
+			"startTime": "2010-12-12T16:30:00Z",
+			"endTime": "2010-12-12T17:29:59Z",
+			"resultTime": "2010-12-12T17:35:00Z",
+			"value": 0.36
+		},
+		{
+			"timeStamp": "2010-12-12T19:00:00Z",
+			"startTime": "2010-12-12T18:30:00Z",
+			"endTime": "2010-12-12T19:29:59Z",
+			"resultTime": "2010-12-12T19:35:00Z",
+			"value": 0.27
+		},
+		{
+			"timeStamp": "2010-12-12T20:00:00Z",
+			"startTime": "2010-12-12T19:30:00Z",
+			"endTime": "2010-12-12T20:29:59Z",
+			"resultTime": "2010-12-12T20:35:00Z",
+			"value": 0.26
+		},
+		{
+			"timeStamp": "2010-12-12T21:00:00Z",
+			"startTime": "2010-12-12T20:30:00Z",
+			"endTime": "2010-12-12T21:29:59Z",
+			"resultTime": "2010-12-12T21:35:00Z",
+			"value": 0.3
+		}
+	],
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "http://www.rws.nl/support/matroos",
+		"apiVersion": "2.0.1",
+		"responseType": "TimeseriesResponse",
+		"responseTimestamp": "2018-07-05T15:11:36.123456Z"
+	}
+}

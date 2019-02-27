@@ -1,0 +1,12 @@
+{
+		"url": "https://some-url.nl/dd/v2/observationtypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+		"id": "Neerslag",
+		"quantity": "Neerslag",
+		"compartment": "LT",
+		"description": "Neerslag",
+		"unit": "mm/d",
+		"provider": {
+			"name": "Matroos",
+			"supportUrl": "tbd http://www.rws.nl/support/matroos"
+		}
+}

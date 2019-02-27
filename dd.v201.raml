@@ -1,0 +1,301 @@
+#%RAML 1.0
+title: Digitale Delta - API
+version: 2.0.1
+securitySchemes:
+  basic:
+    type: Basic Authentication
+  openidconnect:
+    type: OAuth 2.0
+baseUri: http://api.rws.nl/dl/
+mediaType: [ application/json ]
+description: Digital Delta API version 2.0.1
+documentation:
+ - title: Introduction
+   content: !include documentation/dd/Introduction.md
+ - title: Document history
+   content: !include documentation/dd/Document_History.md
+ - title: The API specification
+   content: !include documentation/dd/The_API_Specification.md
+ - title: End points specification
+   content: !include documentation/dd/End_Points_Specification.md
+
+# HTTP is included as protocol but is optional as for security reasons a Provider might decide to support HTTPS only.
+protocols:
+  - HTTP
+  - HTTPS
+
+uses:
+  DD-T: libraries/dd-base-types.raml
+  GENERIC-RESP: libraries/generic-response-types.raml
+  DD-RESP: libraries/dd-response-types.raml
+  TRAITS: libraries/dd-traits.raml
+
+#
+# All data types are defined in external files (see above) so they can be shared between DD and DD-OPER API.
+#
+types:
+
+#
+# The resources
+/dd/2.0:
+
+# ##################################################
+
+  /nodes:
+    get:
+      description: |
+        A (data)node is an area from which resource objects can be retrieved.
+      is: [ TRAITS.pageable, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError ]
+      queryParameters:
+        process?:
+          type: DD-T.ProcessName
+        name?:
+          type: string
+          description: (Partial) name of the node. Partial meaning startsWith(...).
+          example: RwsPrimaryNode
+      responses:
+        200:
+          description: |
+            Succesfully retrieved resource.
+          body:
+            application/json:
+              type: DD-RESP.NodeListResponse
+              example: !include examples/dd-nodelist-response.json
+    /{nodeId}:
+      uriParameters:
+        nodeId:
+          type: DD-T.Identifier
+      is: [ TRAITS.has403-AccessDeniedError, TRAITS.has404-NotFoundError, TRAITS.has500-ServerError ]
+      get:
+        description: Request a specific Node by its unique dentifier.
+        queryParameters:
+          process?:
+            type: DD-T.ProcessName
+        responses:
+          200:
+            description: |
+              Succesfully retrieved resource.
+            body:
+              application/json:
+                type: DD-RESP.NodeResponse
+                example: !include examples/dd-node-response.json
+
+# ##################################################
+
+  /sources:
+    is: [ TRAITS.pageable, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError ]
+    get:
+      description: |
+        A (data)source describes the source of the data. A node can have multiple data sources.
+      queryParameters:
+        process?:
+          type: DD-T.ProcessName
+      responses:
+        200:
+          description: Succesfully retrieved resource.
+          body:
+            application/json:
+              type: DD-RESP.SourceListResponse
+              example: !include examples/dd-sourcelist-response.json
+
+# #####################################################
+
+  /locations:
+    get:
+      description: |
+        Location objects contains all information required to describe a location.
+      is: [ TRAITS.pageable, TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.locationFilterable ]
+      queryParameters:
+        process?:
+          type: DD-T.ProcessName
+        boundingBox?:
+          type: DD-T.BoundingBox
+        locationName?:
+          type: DD-T.LocationName
+        nodeId?:
+          type: DD-T.Identifier
+          description: This query parameter is deprecated.
+        locationCode?:
+          type: DD-T.LocationCode
+        locationId?:
+          type: DD-T.Identifier
+      responses:
+        200:
+          description: Succesfully retrieved resource.
+          body:
+            application/json:
+              type: DD-RESP.LocationListResponse
+              example: !include examples/dd-locationslist-response.json
+
+    /geojson:
+      get:
+        description: |
+          Retrieve location resources. Response is in GeoJSON FeatureCollection format (see https://tools.ietf.org/html/rfc7946#page-12).
+        is: [ TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.locationFilterable ]
+        queryParameters:
+          process?:
+            type: DD-T.ProcessName
+          boundingBox?:
+            type: DD-T.BoundingBox
+          locationName?:
+            type: DD-T.LocationName
+          nodeId?:
+            type: DD-T.Identifier
+            description: This query parameter is deprecated.
+          locationCode?:
+            type: DD-T.LocationCode
+          locationId?:
+            type: DD-T.Identifier
+        responses:
+          200:
+            description: Succesfully retrieved resource.
+            body:
+              application/json:
+                type: DD-RESP.LocationListResponseGeoJSON
+                example: !include examples/dd-locationslist-response-geojson.json
+
+    /{locationId}:
+      description: Request a specific location by its id. Response is always in GeoJSON Feature format (see https://tools.ietf.org/html/rfc7946#page-11).
+      uriParameters:
+        locationId:
+          type: DD-T.Identifier
+      is: [ TRAITS.has403-AccessDeniedError, TRAITS.has404-NotFoundError, TRAITS.has500-ServerError ]
+      get:
+        description: |
+          Request a specific Location by its unique dentifier.
+        queryParameters:
+          process?:
+            type: DD-T.ProcessName
+            default: measurement
+        responses:
+          200:
+            description: |
+              Succesfully retrieved resource
+            body:
+              application/json:
+                type: object
+                example: !include examples/dd-location-response.json
+
+######################################################
+
+  /observationTypes:
+    get:
+      description: |
+        ObservationType objects describe all attributes to correctly interpret what has been measured, and in what way. It is essential to have the quantity field.
+      is: [ TRAITS.pageable, TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.observationTypeFilterable ]
+      queryParameters:
+        process?:
+          type: DD-T.ProcessName
+        observationTypeId?:
+          type: DD-T.Identifier
+        quantity?:
+          description: Retrieve only observation types that contain the specified quantity.
+          type: string
+        parameterCode?:
+          description: Retrieve only observation types that contain the specified parameter code.
+          type: string
+      responses:
+        200:
+          description: |
+            Succesfully retrieved timeseries.
+          body:
+            application/json:
+              type: DD-RESP.ObservationTypeListResponse
+              example: !include examples/dd-observationtypelist-response.json
+
+    /{observationTypeId}:
+      is: [ TRAITS.has403-AccessDeniedError, TRAITS.has404-NotFoundError, TRAITS.has500-ServerError ]
+      uriParameters:
+        observationTypeId:
+          type: DD-T.Identifier
+      get:
+        description: Request a specific ObservationType by its unique identifier.
+        queryParameters:
+          process?:
+            type: DD-T.ProcessName
+        responses:
+          200:
+            description: |
+              Succesfully retrieved resource.
+            body:
+              application/json:
+                type: DD-RESP.ObservationTypeResponse
+                example: !include examples/dd-observationtype-response.json
+
+######################################################
+
+  /timeseries:
+    get:
+      description: |
+        TimeSeriesType objects describe the type of measurement the timeseries contains. These can be for example raw measurements, but also aggregations or simulations. This information could be needed to correctly interpret the measurement values.
+        A request where both startTime and endTime are omitted returns a response with just the metadata.
+      is: [ TRAITS.pageable, TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.timeseriesFilterable, TRAITS.locationFilterable, TRAITS.observationTypeFilterable ]
+      queryParameters:
+        process?:
+          type: DD-T.ProcessName
+        startTime?:
+          type: DD-T.StartTime
+        endTime?:
+          type: DD-T.EndTime
+        locationCode?:
+          type: DD-T.LocationCode
+        locationName?:
+          type: DD-T.LocationName
+        sourceName?:
+          type: DD-T.SourceName
+        observationTypeId?:
+          type: DD-T.Identifier
+        realizationCount?:
+          description: Added Count as this is the name in ObservationType response.
+          type: integer
+        parameterCode?:
+          description: Implementation is optional. Preferably to be implemented by means of the generic filtering mechanism.
+          type: string
+        quantity?:
+          description: Implementation is optional. Preferably to be implemented by means of the generic filtering mechanism.
+          type: string
+        valueType?:
+          description: Value type (float, integer, categorized).
+          type: string
+        nodeId?:
+          type: DD-T.Identifier
+        qualifier?:
+          description: Filter for the optional qualifier property.
+          type: string
+        aspectSet?:
+          type: DD-T.AspectSetName
+          description: Remark&colon; Only required for systems that implement aspect sets
+        quantityName?:
+          type: DD-T.QuantityName
+          description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
+        intervalLength?:
+          type: DD-T.IntervalLength
+          description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
+      responses:
+        200:
+          description: |
+            Succesfully retrieved timeseries.
+          body:
+            application/json:
+              type: DD-RESP.TimeseriesListResponse
+              example: !include examples/dd-timeserieslist-response-verwachtingen-en-metingen-fulldd.json
+
+    /{timeseriesId}:
+      uriParameters:
+        timeseriesId:
+          type: DD-T.Identifier
+      is: [ TRAITS.has403-AccessDeniedError, TRAITS.has404-NotFoundError, TRAITS.has500-ServerError ]
+      get:
+        description: Request a specific (single) Timeseries by its unique identifier.
+        queryParameters:
+          process?:
+            type: DD-T.ProcessName
+            default: measurement
+        responses:
+          200:
+            description: |
+              Succesfully retrieved resource
+            body:
+              application/json:
+                type: DD-RESP.TimeseriesResponse
+                example: !include examples/dd-timeseries-response-single.json

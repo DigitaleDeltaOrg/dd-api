@@ -1,0 +1,12 @@
+{
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "http://www.rws.nl/support/matroos",
+		"apiVersion": "2.0.1"
+	},
+	"type": "https://content.matroos.rws.nl/ValidatieFout",
+	"title": "Hier staat wat er mis is gegaan",
+	"status": 404,
+	"detail": "Verplichte query parameter ontbreekt.",
+	"instance": "urn:2018-01-01:23:59:59.99999Z"
+}

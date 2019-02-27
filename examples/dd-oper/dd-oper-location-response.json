@@ -1,0 +1,25 @@
+{
+	"type": "Feature",
+	"geometry": {
+		"type": "Point",
+		"coordinates": [
+			4.123456,
+			52.123456
+		]
+	},
+	"properties": {
+		"locationName": "maarssen.oostkanaaldijk",
+		"locationNameSpace": "NL.RWS.WM",
+		"displayNameGlobal": "Maarssen",
+		"displayNameDetail": "Oostkanaaldijk",
+		"parentName": "noordzeekanaal-amsterdamrijnkanaal",
+		"referenceLevel": "NAP",
+		"crsName": "ETRS89"
+	},
+	"provider": {
+		"name": "MKK-DL",
+		"supportUrl": "tbd http://www.rws.nl/support/mkk-dl",
+		"responseType": "LocationResponse",
+		"responseTimestamp": "2019-01-10T15:11:36.123456Z"
+	}
+}

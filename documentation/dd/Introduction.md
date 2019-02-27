@@ -1,0 +1,2 @@
+The Digital Delta is a distributed network in which various data sources exchange information using a standard web service interface. The architecture and additional description of the Digital Delta can be found on ... _(todo: refer to digitaldelta.org once it is on line)_.  
+The present document contains the specification of the Digital Delta web service API. It uses the <a href="http://raml.org">RAML standard</a> as the definition language.<br/>

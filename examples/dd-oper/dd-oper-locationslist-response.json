@@ -1,0 +1,60 @@
+{
+	"provider": {
+		"name": "MKK-DL",
+		"supportUrl": "tbd http://www.rws.nl/support/mkk-dl",
+		"responseType": "LocationListResponse",
+		"responseTimestamp": "2018-07-05T15:11:36.123456Z"
+	},
+	"results": [
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					4.123456,
+					52.123456
+				]
+			},
+			"properties": {
+				"locationName": "maarssen.oostkanaaldijk",
+				"locationNameSpace": "NL.RWS.WM",
+				"displayNameGlobal": "Maarssen",
+				"displayNameDetail": "Oostkanaaldijk",
+				"parentName": "noordzeekanaal-amsterdamrijnkanaal",
+				"referenceLevel": "NAP",
+				"crsName": "ETRS89"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "MultiPoint",
+				"coordinates": [
+					[
+						4.123456,
+						52.123456
+					],
+					[
+						4.123456,
+						52.123456,
+						-1.0
+					],
+					[
+						4.123456,
+						52.123456,
+						-2.0
+					]
+				]
+			},
+			"properties": {
+				"locationName": "maarssen.westkanaaldijk",
+				"locationNameSpace": "NL.RWS.WM",
+				"displayNameGlobal": "Maarssen",
+				"displayNameDetail": "Westkanaaldijk",
+				"parentName": "noordzeekanaal-amsterdamrijnkanaal",
+				"referenceLevel": "NAP",
+				"crsName": "ETRS89"
+			}
+		}
+	]
+}

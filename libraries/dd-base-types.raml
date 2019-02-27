@@ -1,0 +1,541 @@
+#%RAML 1.0 Library
+
+# Name: dd-base-types.raml
+#
+# Version: 2.0.1
+#
+# Date: 2019-01-14
+#
+#  This file defines the basic datatypes used in the DD API and DD-OPER API.
+#  Provide a discription when the type is NOT a custom type.
+#  All attributes of a custum type must be described, unless the attribute is of a custom type.
+
+types:
+  AdditionalQuality:
+    type: number
+    description: Provides detailed information on specific Quality numbers.
+
+  Aspect:
+    description: A (usually mathematically derived) related variable of a specific measurement, forecast, etc.
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the aspect.
+        example: measurement
+      unit:
+        type: string
+        description: Unit of measurement of the aspect.
+        example: m/s
+
+  AspectSet:
+    description: Defines a group of related variables for a single measurement, forecast, etc.
+    type: object
+    properties:
+      name:
+        type: AspectSetName
+      aspects:
+        type: Aspect[]
+        description: An array of aspects.
+        minItems: 0
+
+  AspectSetName:
+    description: Name of an AspectSet. If implementing systems require an aspect-filter in the request-url and it is omitted, "default" is taken.
+    type: string
+    example: "MinimumMaximumAverage"
+
+  AspectPointsValue:
+    description: Object used for Event.Aspect.Points. Specifies the values in the list of points for one of the aspects in an AspectSet.
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the aspect.
+      points:
+        type: PointsValue[]
+
+  AspectValue:
+    description: Object used for Event.Aspect[] results. Specifies the value for one of the aspects in an AspectSet.
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the aspect.
+        example: Average
+      value:
+        type: ValueType
+      limitSymbol?:
+        description: Specifies that the value is e.g. higher (or lower) then the value in "value". Known limitSymbols are "<", ">", "<=", ">="
+        type: string
+        example: <
+      quality?:
+        type: Quality
+      additionalQuality?:
+        type: AdditionalQuality
+
+  BoundingBox:
+    description: The specification of a bounding box using the longitude and latitude of the most SouthWest point followed by the most NorthEast points (GeoJSON).
+    type: Double[]
+    minItems: 4
+    maxItems: 4
+    examples:
+      -bbox: [ 4.123456, 52.123456, 10.123456, 55.123456 ]
+
+  Double:
+    description: A value of type Double.
+    type: number
+    format: double
+    example: 4.123456
+
+  EndTime:
+    type: datetime
+    example: 2018-01-01T00:00:00Z
+    description:  The End date/time of the time series, or the End date/time of the interval for an individual value in the series. Uses the UCT (Zulu) notation.
+      The endtime is exlusive, hence the requested period ends just before the given time.
+      2018-01-01T00&colon;00&colon;00Z - 2018-01-01T00&colon;00&colon;10Z specifies a 10 minute period starting at midnight and
+      ending at 2018-01-01T00&colon;09&colon;59.99999Z
+
+  Error:
+    description:  Error response in line with RFC7807. Although both optional the minimum information that should be given are the title and status.
+    type: object
+    properties:
+      type?:
+        description: Type of error.
+        type: Url
+      title?:
+        description: Title of the error.
+        type: string
+        example: Error processing the request.
+      status?:
+        type: integer
+        description: The HTTP error code number (HTTP Status Code).
+        example: 404
+      detail?:
+        description: Details of the error
+        type: string
+        example: Request resulted in a response that was too large.
+      instance?:
+        description: Reference to the error for the provider.
+        type: string | nil
+        example: https://myservice/meaningOrError400
+        # Additional fields, RFC7807 extension
+      errors?:
+        description: Error details. More than one error can occur within the problem.
+        type: FilterError[]
+
+  Event:
+    description: In case of scalar time series the event contains time stamp and value, optionally extended with
+      an interval specification (startTime/endTime/resultTime), and a quality indicator (quality, additionalQuality).
+      In case of a time series with aspects and/or with values on multiple points, the events contains object for the aspects and/or points.
+    type: object
+    properties:
+      timeStamp?:
+        description: Timestamp of the occurrence of the event.
+        type: datetime
+      startTime?:
+        type: StartTime
+      endTime?:
+        type: EndTime
+      resultTime?:
+        description: Result time.
+        type: datetime
+      value?:
+        type: ValueType
+      limitSymbol?:
+        description: Specifies that the value is e.g. higher (or lower) then the value in "value". Known limitSymbols are "<", ">", "<=", ">="
+        type: string
+      quality?:
+        type: Quality
+      additionalQuality?:
+        type: AdditionalQuality
+      aspects?:
+        type: AspectValue[] | AspectPointsValue []
+        description: When the time series contains aspects the value/quality/unit are given in an object for each aspect or aspect+point.
+      points?:
+        type: PointsValue[]
+
+  Filter:
+    type: string
+    description: Defines a query filter. TODO&colon; describe syntax.
+
+  FilterError:
+    type: object
+    description: Defines the field of an error in the filtering syntax.
+    properties:
+      errorType:
+        type: string
+        example: Unknown comparer.
+      context:
+        type: string
+        example: Field 'locationCode'.
+
+  Geometry:
+    description: A geometry in GeoJSON format. Digital Delta currently formally only
+      supports the Point and MultiPoint types. However, implementations may choose
+      to also provide time series on a Polygon
+    type: object
+    properties:
+      type:
+        description: The geometry type. Must have the value "Point" or "MultiPoint".
+        type: string
+        examples:
+          -point: "Point"
+          -multipoint: "MultiPoint"
+      coordinates?:
+        type: Position | Positions
+        examples:
+          -point:  [4.234 , 5.23423]
+          -multipoint:  [[4.2, 52.0], [3.2, 52.3,0]]
+
+  Identifier:
+    type: string
+    description: An identifier can be anything expressed by a string.
+
+  Institution:
+    description: An institution is an organisation that produces data for the DD-API.
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the institution that produced and/or owns the data
+      description?:
+        type: string
+        description: Additional description of the institution
+
+# IntervalLength is not required as object since it is only used as query parameter
+  IntervalLength:
+    type: string
+    description: Interval length of the sequence.
+    default: 10min
+
+  Location:
+    description: Generic DD API 2.0 Location object, structured according to GeoJSON. Most attributes are optional, since the content returned in the response depends on whether it is a /dd or a /dd-oper request. Location attributes are placed within the properties group of the GeoJSON  object.
+    properties:
+      type:
+        description: Type of GeoJSON object. In the DD-API the only allowed type is "Feature".
+        type: string
+        enum: ["Feature"]
+      geometry:
+        description: The coordinate(s) of the Location are placed within the "geometry" section of the GeoJSON object.
+          DD-API uses Point and Multi-Point locations, but is not restricted to these two.
+        type: Geometry | nil
+      properties?:
+        description: The attributes of the Location object are placed within the properties group of the GeoJSON object.
+        type: object
+        properties:
+          url?:
+            description: Url describing the location object. (Not provided in case of /dd-oper requests.)
+            type: string
+          node?:
+            description: Specification of the node where the location is stored.
+            type: Node
+          locationId?:
+            description: Id of the location.
+            type: string
+          locationCode?:
+            type: LocationCode
+          locationName?:
+            description: Name of the location.
+            type: LocationName
+          referenceLevel?:
+            description: GeoJSON element. Specifies the reference plane for the altitude coordinates (third). For example "NAP".
+            type: string
+          crsName?:
+            description: The coordinate reference system of the given coordinates according to the INSPIRE definition
+              (see url https&colon;//inspire.ec.europa.eu/documents/Data_Specifications/INSPIRE_Specification_CRS_v3.0.pdf section 4.4.1)
+              GeoJSON does nolonger support reference to a Coordinate Reference System. It assumes coordinates are defined according WGS84.
+              However, within DD-API there is a need to provide coordinates in different coordinate-systems, for instance ETRS89.
+              The element is optional and when omitted WGS84 should be assumed.
+              Remark&colon; INSPIRE does not define 'ETRS89' as such, but specifies different 'flavors' of it with a suffix. To prevent
+              unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89-XYZ'.
+            type: string
+          locationNameSpace?:
+            type: LocationNameSpace
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameDetail?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameGlobal?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameSpace?:
+            type: LocationNameSpace
+            description: Remark&colon; Only used in DD-OPER response.
+          parentName?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
+
+  LocationCode:
+    type: string
+    example: "HVH"
+
+  LocationName:
+    type: string
+    example: "Hoek-van-Holland"
+
+  LocationNameSpace:
+    type: string
+    example: "NL.RWS.WM"
+
+  Node:
+    description: Node objects contain the properties of the DD-node that contains the data. A node is an operational implementation of the Digital Delta specification.
+    type: object
+    properties:
+      id?:
+        description: Id of the node.
+        type: Identifier
+      name:
+        type: string
+        description: The name of the node.
+      description?:
+        type: string
+        description: The description of the node.
+      baseUrl?:
+        type: string
+        description: The base URL of the node.
+
+  ObservationType:
+    description: Generic DD API 2.0 quantity/parameter object. The DD-OPER API response returns a subset of the attributes.
+    type: object
+    properties:
+      id?:
+        description: Id of the observation type.
+        type: Identifier
+      url?:
+        description: The provider's URL for the time series.
+        type: Url
+      node?:
+        description: Reference to the DD-node that contains the data of the time series.
+        type: Node
+      quantity?:
+        description: Quantity (grootheid) of the observation type.
+        type: string
+      parameterCode?:
+        description: Parameter code specifying the observationtype. Non-biological observation types follow the Aquo standards.
+        type: string
+      description?:
+        description: Description of the observation type.
+        type: string
+      unit?:
+        description: (Measurement) unit of the observation type.
+        type: string
+      compartment?:
+        description: The compartment in which the measurement/computation is available. Standardised Aquo compartments.
+        type: string
+        example:  OW, DL, GW, LW
+      qualifier?:
+        type: string
+        description: Additional qualification of the measurement or computation. Can be used for the Aqou 'hoedanigheid'.
+      quantityName?:
+        description: Composed name of the quantity(.parameterCode) that was measured or computed.
+          Remark&colon; Only used in DD-OPER response.
+        type: QuantityName
+      aspectSet?:
+        description: Optional, currently only provided and used by RWS.
+        type: AspectSet
+
+  PageLinks:
+    description: The object contains urls and page size information to support back and forward paging
+    type: object
+    properties:
+      totalObjectCount?:
+        description: The actual number of objects available. When paging is used the response contains a subset of the total obejcts available up to the max page size.
+        type: integer
+      maxPageSize?:
+        description: Maximum number of objects in the response. Defined by the Provider of the response.
+        type: PageSize
+      minPageSize?:
+          description: Minimum number of objects in the response. Defined by the Provider of the response.
+          type: PageSize
+          minimum: 1
+      self?:
+        description: Url of the current request.
+        type: Url | nil
+      first?:
+        description: Url to the first page of the result set.
+        type: Url | nil
+      prev:
+        description: Url to the previous page of the result set.
+        type: Url | nil
+      next:
+        description: Url to the next page of the result set.
+        type: Url | nil
+      last?:
+        description: Url to the last page of the result set.
+        type: Url | nil
+
+  PageNumber:
+    description: Page number in case the response is seprated in different pages.
+    type: integer
+    minimum: 1
+    example: 1
+
+  PageSize:
+    description: Number of result objects per a single response page. Used for minimum, maximum and/or actual.
+    type: integer
+    minimum: 1
+    maximum: 10000
+    example: 10
+
+  PointsValue:
+    type: object
+    properties:
+      coordinates: Position
+      value:
+        description: The value of the measured or computed data.
+        type: ValueType
+      limitSymbol?:
+        description: Specifies that the value is e.g. higher (or lower) then the value in "value". Known limitSymbols are "<", ">", "<=", ">="
+        type: string
+      quality?:
+        description: Indicator for the quality of the measured or computed value in the 'value' attribute.
+        type: Quality
+      additionalQuality?:
+        description: Additional information on the value in the 'quality' attribute.
+        type: AdditionalQuality
+
+  Position:
+    description: |
+      A location specified in an array with longitude, lattitude and optional altitude.
+    type: Double[]
+    minItems: 2
+    maxItems: 3
+    example: [4.234 , 5.23423]
+
+  Positions:
+    description: An array of Positions to specify a MultiPpoint location.
+    type: Position[]
+    minItems: 0
+    examples:
+      -multipoint: [[4.2, 52.0], [3.2, 52.3,0]]
+
+  ProcessName:
+    type: string
+    description: The name of the mechanism to collect/derive the time series value.
+      When accessing RWS' DD-API, providing a processName as query parameter is required. The process names are pre-defined (see examples).
+      Extending the processname with a suffix, referencing a more detailed mechanism like a specific calculation model, is not allowed.
+      Other implementions dot need to implement this query-parameter.
+    example: measurement, forecast, astronomical, advise
+
+  Provider:
+    type: object
+    description: Information regarding the system that is responsible for the response.
+      Provides support contact information in case there are issues with response format or content.
+    properties:
+      name?:
+        description: Name of the provider (of the service).
+        type: string
+      supportUrl?:
+        description: Url to information for the provider (of the service).
+        type: string
+      apiVersion?:
+        description: API Version with which the result set was generated. Can be used to parse the response.
+        type: string
+      responseType?:
+        description: Name of the type of the result set. Can be used to parse the response.
+        type: string
+      responseTimestamp?:
+        type: Timestamp
+        description: Timestamp when this response was created.
+
+  Quality:
+    description: Defines the quality of the result (confidence).
+    type: number
+
+  QuantityName:
+    type: string
+    description: A name referencing a category of time series. The quantity names are predefined.
+      For example 'waterlevel', 'watertemperature', 'waveheight'.
+      Remark&colon; Only used in DD-OPER
+    example: waterLevel
+
+  Source:
+    description: Describes the type of data in the time series, and the owner of the data.
+    type: object
+    properties:
+      process:
+        description: Name of the process.
+        type: ProcessName
+      name?:
+        type: SourceName
+        description: A name describing the source, e.g. a model name.
+      description?:
+        type: string
+        description: Additional description of the data source (might contain a URL to a site with information on the model).
+      realizationCount?:
+        type: integer
+        description: if present, and larger then 1, the results are part of an ensemble run
+      institution:
+        type: Institution
+
+  SourceName:
+    type: string
+    description: A name describing the source, e.g. a model name
+    example: rws_prediction
+
+  StartTime:
+    type: datetime
+    example: 2016-01-01T12:45:00Z
+    description:  Start date/time of the time series, or the Start date/time of the interval for an individual value in the series. Uses the UCT (Zulu) notation.
+
+  Timeseries:
+    description: Generic DD API 2.0 time series object. The DD-OPER API response returns a subset of the attributes.
+    type: object
+    properties:
+      node?:
+        type: Node
+      url?:
+        description: The provider's URL for the time series.
+        type: string
+      id?:
+        type: Identifier
+      source:
+        type: Source
+      location:
+        type: Location
+      observationType:
+        type: ObservationType
+      startTime:
+        description: Start date-time of the time series (the first timestamp/value pair available in the series).
+        type: datetime
+      endTime:
+        description: End date-time of the time series (the last timestamp/value pair available in the series).
+        type: datetime
+      analysisTime?:
+        description: Analysis date-time of the time series.
+        type: datetime
+      realization?:
+        description: Realization count.
+        type: number
+      intervalLength?:
+        description: Specifies the interval between events in the time series. If present and set to 'null', the time series is non-equidistant. TODO&colon; decide on options for units.
+        type: number
+      valueType?:
+        type: ValueType
+      qualifier?:
+        type: string
+        description: Additional qualification of the measurement or computation.
+      events?:
+        type: Event[]
+        description: If no startTime and no endTime are provided in the /time series-query, only meta-data is provided,
+          so the events are not present.
+
+  Timestamp:
+    type: string
+    description: Date and time in format "yyyy-mmm-ddThh:mm:ss.ffffffZ"  (UTC Zulu with minimal 3 digits of fractional seconds)
+    example: "2018-07-05T15:11:36.123Z,  2018-07-05T15:11:36.123456Z, 2018-07-05T15:11:36.000Z"
+    minLength: 24
+
+  ValueType:
+    type: number | string
+    description: The type of values in the time series ('string' in case of categorized values, like 'natuurlijk' vs 'aangelegd'). Also known as QuantityValue.
+
+  Url:
+    type: string
+    description: Correctly formatted url reference.
+
+  Uuid:
+    type: string
+    pattern: "[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}"
+    description: Unique identifier for the datasource. Version 4.
+    example: 978fdf5c-95c8-43a5-82ff-d27d9e6d685f

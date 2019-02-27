@@ -1,0 +1,305 @@
+{
+  "provider": {
+    "name": "LMW-Next",
+    "supportUrl": "http://www.rws.nl/support/lmw-next",
+    "responseType": "timeseriesListResponse",
+    "responseTimestamp": "2018-07-05T15:11:36.123456Z"
+  },
+  "results": [ {
+    "source": {
+      "process": "measurement",
+      "institution": {
+      	"name": "RWS"
+      }
+    },
+    "location": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.1333300,
+          51.9775000
+        ]
+      },
+      "properties": {
+				"locationName": "amsterdamrijnkanaal.oostkanaaldijk",
+      	"locationNameSpace": "NL.RWS.WM",
+      	"displayNameGlobal": "AmsterdamRijnKanaal",
+      	"displayNameDetail": "Oostkanaaldijk KP112",
+      	"parentName": "noordzeekanaal-amsterdamrijnkanaal",
+        "referenceLevel": "WaterOppervlakte",
+        "crsName": "ETRS89"
+      }
+    },
+    "observationType": {
+      "quantityName": "waterLevel",
+      "aspectSet": {
+        "name": "default",
+        "aspects": [{
+            "name": "average",
+            "unit": "m"
+          },
+          {
+            "name": "minimum",
+            "unit": "m"
+          },
+          {
+            "name": "maximum",
+            "unit": "m"
+          }
+        ]
+      }
+    },
+    "startTime": "2017-02-07T13:05:30Z",
+    "endTime": "2017-02-07T13:06:30Z",
+    "events": [{
+        "timeStamp": "2017-02-07T13:05:30Z",
+        "startTime": "2017-02-07T13:05:00Z",
+        "endTime": "2017-02-07T13:05:59Z",
+        "aspects": [{
+            "name": "average",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 10
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 13,
+                "additionalQuality": 88,
+                "value": 11
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 12
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 13
+              }
+            ]
+          },
+          {
+            "name": "minimum",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 9
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 1,
+                "value": 10
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 11
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 12
+              }
+            ]
+          },
+          {
+            "name": "maximum",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 11
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 1,
+                "value": 12
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 13
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 14
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "timeStamp": "2017-02-07T13:06:30Z",
+        "startTime": "2017-02-07T13:06:00Z",
+        "endTime": "2017-02-07T13:06:59Z",
+        "aspects": [{
+            "name": "average",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 10.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 1,
+                "value": 11.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 12.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 13.5
+              }
+            ]
+          },
+          {
+            "name": "minimum",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 9.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 1,
+                "value": 10.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 11.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 12.5
+              }
+            ]
+          },
+          {
+            "name": "maximum",
+            "points": [{
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  1.1
+                ],
+                "quality": 1,
+                "value": 11.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.8
+                ],
+                "quality": 1,
+                "value": 12.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000,
+                  0.4
+                ],
+                "quality": 1,
+                "value": 13.5
+              },
+              {
+                "coordinates": [
+                  4.1333300,
+                  51.9775000, -0.1
+                ],
+                "quality": 1,
+                "value": 14.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

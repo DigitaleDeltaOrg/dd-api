@@ -1,0 +1,28 @@
+{
+	"quantityName": "waterlevel",
+	"aspectSets": [
+		{
+			"name": "default",
+			"aspects": [
+				{
+					"name": "minimun",
+					"unit": "m"
+				},
+				{
+					"name": "maximum",
+					"unit": "m"
+				},
+				{
+					"name": "average",
+					"unit": "m"
+				}
+			]
+ 		}
+	],
+	"provider": {
+		"name": "MKK-DL",
+		"supportUrl": "http://www.rws.nl/support/mkk-dl",
+		"responseType": "QuantityResponse",
+		"responseTimestamp": "2019-01-14T15:11:36.123456Z"
+	}
+}

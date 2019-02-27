@@ -1,0 +1,35 @@
+{
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "tbd http://www.rws.nl/support/matroos"
+	},
+	"paging": {
+		"totalObjectCount": 2,
+		"prev": null,
+		"next": "https://some-url.nl/dd/2.0/sources?process=forecast&pageSize=2&page=2",
+		"minPageSize": 1,
+		"maxPageSize": 100
+	},
+	"results": [
+		{
+			"process": "forecast",
+			"name": "HIRLAM_7.2",
+			"description": "Weather forecast model",
+			"realizationCount": 24,
+			"institution": {
+				"name": "KNMI",
+				"description": "Dutch Weather"
+			}
+		},
+		{
+			"process": "forecast",
+			"name": "NATTEVINGERWERK",
+			"description": "some forecast model",
+			"realizationCount": 1,
+			"institution": {
+				"name": "some institute",
+				"description": "some unknown institute"
+			}
+		}
+	]
+}

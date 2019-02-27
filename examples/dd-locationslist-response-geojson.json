@@ -1,0 +1,45 @@
+{
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					4.123456,
+					52.123456
+				]
+			},
+			"properties": {
+				"locationName": "Maarssen.Oostkanaaldijk",
+				"locationNameSpace": "NL.RWS.WM"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "MultiPoint",
+				"coordinates": [
+					[
+						4.123456,
+						52.123456
+					],
+					[
+						4.123456,
+						52.123456,
+						-1.0
+					],
+					[
+						4.123456,
+						52.123456,
+						-2.0
+					]
+				]
+			},
+			"properties": {
+				"locationName": "Maarssen.Westkanaaldijk",
+				"locationNameSpace": "NL.RWS.WM"
+			}
+		}
+	]
+}

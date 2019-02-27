@@ -1,0 +1,31 @@
+{
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "tbd http://www.rws.nl/support/matroos"
+	},
+	"paging": {
+		"totalObjectCount": 4,
+		"prev": null,
+		"next": "https://some-url.nl/dd/2.0/observationTypes?process=forecast&pageSize=2&page=2",
+		"minPageSize": 1,
+		"maxPageSize": 100
+	},
+	"results": [
+		{
+			"url": "https://some-url.nl/dd/2.0/observationTypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+			"id": "Neerslag",
+			"quantity": "Neerslag",
+			"compartment": "LT",
+			"description": "Neerslag",
+			"unit": "mm/d"
+		},
+		{
+			"url": "https://some-url.nl/dd/2.0/observationTypes/abcdefgh-ijkl-mnop-qrst-293892832",
+			"id": "Verdamping",
+			"quantity": "Verdamping",
+			"compartment": "LT",
+			"description": "Verdamping",
+			"unit": "mm/d"
+		}
+	]
+}

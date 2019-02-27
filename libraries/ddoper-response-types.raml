@@ -1,0 +1,65 @@
+#%RAML 1.0 Library
+
+# Name: ddoper-response-types.raml
+#
+# Version: 2.0.1
+#
+# Date: 2019-01-14
+#
+#  This file defines the response layouts used by /DD-OPER API 2.0.
+#
+uses:
+  DD-T: dd-base-types.raml
+  DDOPER-T: ddoper-base-types.raml
+  GENERIC-RESP: generic-response-types.raml
+
+types:
+#
+# response types
+#
+  ErrorResponse:
+    description: |
+          The response returned in case of an error/problem (when HTTP return code is not 200). The header is in
+          line with RFC7807.
+    type: GENERIC-RESP.ErrorResponse
+
+  LocationListResponse:
+    description: Contains a list of zero or more Locations.
+    type: GENERIC-RESP.BaseResponseHeader
+    properties:
+      results:
+        type: DD-T.Location[]
+
+  LocationResponse:
+#      Note: The structure of a single Location Response differs from the generic structure used for all other response (GENERIC-RESP)
+#      This is due to decission by DD-API workgroup to use a different response for endpoint /dd/locations/{locationId} for better Geo-Tooling support.
+#      The response structure for /dd-oper and /dd must be the same. Hence the change for /dd-oper.
+    description: Contains the response for one Location.
+    type: DD-T.Location
+    properties:
+      provider:
+        type: DD-T.Provider
+
+  QuantityListResponse:
+    description: Contains a list of zero or more Quantities.
+    type: GENERIC-RESP.BaseResponseHeader
+    properties:
+      results:
+        type: DD-T.QuantityName[]
+
+  QuantityResponse:
+    description: Contains the response for one Quantity with optionally an array of AspectSets available for the Quantity.
+    type: GENERIC-RESP.BaseResponseHeader
+    properties:
+      quantityName:
+        type: DD-T.QuantityName
+      aspectSets?:
+        type: DD-T.AspectSet[]
+
+  TimeseriesListResponse:
+    description:
+    type: GENERIC-RESP.BaseResponseHeader
+    properties:
+      results:
+        type: DD-T.Timeseries[]
+        description: Timeseries objects with multiple event values. Defined as List for compatibility with DD API.

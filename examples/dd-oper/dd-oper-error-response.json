@@ -1,0 +1,14 @@
+{
+	"provider": {
+		"name": "MKK-DL",
+		"supportUrl": "http://www.rws.nl/support/mkk-dl",
+		"responseType": "ProblemResponse",
+		"responseTimestamp": "2018-07-05T15:11:36.123456Z",
+		"apiVersion": "2.0.1"
+	},
+	"type": "https://content.mkk-dl.rws.nl/c/esb/ValidatieFout",
+	"title": "Hier staat wat er mis is gegaan",
+	"status": 404,
+	"detail": "Verplichte query parameter ontbreekt.",
+	"instance": "urn:esblog:2018-01-01:23:59:59.99999Z"
+}

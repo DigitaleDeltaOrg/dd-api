@@ -1,0 +1,27 @@
+{
+	"provider": {
+		"name": "Matroos",
+		"supportUrl": "tbd http://www.rws.nl/support/matroos"
+	},
+	"paging": {
+		"totalObjectCount": 2,
+		"prev": null,
+		"next": null,
+		"minPageSize": 1,
+		"maxPageSize": 100
+	},
+	"results": [
+		{
+			"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+			"baseUrl": "https://www.rws.nl",
+			"name": "Matroos 1",
+			"description": "......"
+		},
+		{
+			"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz890",
+			"baseUrl": "https://www.rws.nl",
+			"name": "Matroos 2",
+			"description": "......"
+		}
+	]
+}
