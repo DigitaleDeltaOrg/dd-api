@@ -7,7 +7,7 @@ This specification describes the Digital Delta API Version 2.0.1 (DD-API 2.0.1).
 
 Version 2.0.1 of the DD-API builds on the foundation as specified in [version 1.0](https://github.com/DigitaleDeltaOrg/dd-api-spec/blob/master/README.md).
 
-See the [Digital Delta project](https://digitaledeltaorg.github.io/landing-page/) for background information.
+See the [Digital Delta project](http://digitaledelta.org) for background information.
 
 The changes in version 2.0.1 compared to 1.0 can be summarized as:
 
