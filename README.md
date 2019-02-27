@@ -42,7 +42,7 @@ The [DD-API 2.0.1](dd.v201.raml) of the specification is the 'general purpose' s
 
 The Operational extension ["DD-OPER-API"](dd-oper.v201.raml) is an extension developed for/by Rijkswaterstaat, designed to retrieve data using a fixed strict Url-path. It only differs from the generic version in the Url-syntax. The DD-OPER-API does not support discovery.
 
-The changes between version 1.0 and 2.0.1 are described [here](https://github.com/DigitaleDeltaOrg/dd-api-spec/blob/master/Documentation/Changes_between_1.0_and_2.0.md).
+The changes between version 1.0 and 2.0.1 are described [here](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/Documentation/Changes_between_1.0_and_2.0.md).
 
 ## Implementations
 The [Current Implementations](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Current-implementations) contains the most recent list of implementations of the Digital Delta Specifications.
