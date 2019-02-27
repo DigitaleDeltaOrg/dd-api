@@ -30,7 +30,7 @@ There are, however, [result samples](https://github.com/DigitaleDeltaOrg/dd-api/
 
 To read the RAML specification, some [tools](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Tools) are recommended. Some tools are also capable of generating documentation, or code skeletons for both consumers and implementers.
 
-The [HTML specifications](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/dd.v201.html) can also be used and may be easier to read.
+The [HTML specifications](http://htmlpreview.github.com/?https://github.com/DigitaleDeltaOrg/dd-api/blob/master/dd.v201.html) can also be used and may be easier to read.
 
 ### Prerequisites
 The easiest way to get the specification is to download the generated HTML files.
