@@ -26,11 +26,11 @@ The status of this specification is **final**.
 The specification is written in [RAML 1.0](https://raml.org), a 'language' to define [REST](https://nl.wikipedia.org/wiki/Representational_state_transfer) (REpresentational State Transfer) service.
 
 It is a _specification_. This means that there is no full implementation of this specification available in this repository.
-There are, however, [result samples](https://github.com/DigitaleDeltaOrg/dd-api/tree/2.0/examples) available. Some [helper classes](https://github.com/DigitaleDeltaOrg/dd-api/wiki/C%23-Generic-Base-Classes-for-DD-API-2.0) in the [C# programming language](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/index) are available in the [Wiki](https://github.com/DigitaleDeltaOrg/dd-api/wiki).
+There are, however, [result samples](https://github.com/DigitaleDeltaOrg/dd-api/tree/master/examples) available. Some [helper classes](https://github.com/DigitaleDeltaOrg/dd-api/wiki/C%23-Generic-Base-Classes-for-DD-API-2.0) in the [C# programming language](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/index) are available in the [Wiki](https://github.com/DigitaleDeltaOrg/dd-api/wiki).
 
 To read the RAML specification, some [tools](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Tools) are recommended. Some tools are also capable of generating documentation, or code skeletons for both consumers and implementers.
 
-The [HTML specifications](https://github.com/DigitaleDeltaOrg/dd-api/blob/dd.v201.html) can also be used and may be easier to read.
+The [HTML specifications](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/dd.v201.html) can also be used and may be easier to read.
 
 ### Prerequisites
 The easiest way to get the specification is to download the generated HTML files.
