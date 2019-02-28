@@ -11,4 +11,4 @@ See the figure below for an overview of the various resource objects and their r
 &nbsp;
 <p/>
 
-<img src="https://github.com/DigitaleDeltaOrg/dd-api-spec/blob/2.0/documentation/DD-API-2.0-resource-objects.png?raw=true"/>
+<img src="https://raw.githubusercontent.com/DigitaleDeltaOrg/dd-api/master/documentation/DD-API-2.0-resource-objects.png"/>
