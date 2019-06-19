@@ -1,0 +1,94 @@
+#%RAML 1.0 Library
+#
+# Name: dd-traits.raml
+#
+# Version: 2.0.1
+#
+# Date: 2018-07-10
+#
+#  This file defines the Triats to be used in DD API.
+
+uses:
+  DD-T: dd-base-types.raml
+  GENERIC-RESP: generic-response-types.raml
+
+traits:
+#
+#  expandable:
+#    description: Defines query parameters for expandable requests.
+#    queryParameters:
+#      expand?:
+#        type: string
+#        description: Expands the data.
+
+#  filterable:
+#    description: Defines query parameters for filterable requests.
+#    queryParameters:
+#      filter?:
+#        type: DD-T.Filter | string
+#        description: Filter the data, based on the filter. See Search syntax DD-ECO-API.
+
+  pageable:
+    queryParameters:
+      page?:
+        type: integer
+        description: Page number, starting with 1.
+      pageSize?:
+        type: integer
+        description: Requested response Page size. Minimum, maximum and default is defined by Provider. Minimum can never be lower than 1.
+
+  timeseriesFilterable:
+    description: Defines query parameters for timeseries filter requests.
+    queryParameters:
+      timeseriesFilter?:
+        type: DD-T.Filter
+        description: New, optional functionality.
+
+  locationFilterable:
+    description: Defines query parameters for location filter requests.
+    queryParameters:
+      locationFilter?:
+        type: DD-T.Filter
+        description: New, optional functionality.
+
+  observationTypeFilterable:
+    description: Defines query parameters for observation type filter requests.
+    queryParameters:
+      observationTypeFilter?:
+        type: DD-T.Filter
+        description: New, optional functionality.
+
+#
+# Responses Error Codes
+#
+  has400-InvalidRequestError:
+    responses:
+      400:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include dd-oper-examples/dd-error-response.json
+
+  has403-AccessDeniedError:
+    responses:
+      400:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include dd-oper-examples/dd-error-response.json
+
+  has404-NotFoundError:
+    responses:
+      404:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include dd-oper-examples/dd-error-response.json
+
+  has500-ServerError:
+    responses:
+      500:
+        body:
+          application/json:
+            type: GENERIC-RESP.ErrorResponse
+            example: !include dd-oper-examples/dd-error-response.json

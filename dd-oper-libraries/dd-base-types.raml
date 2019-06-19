@@ -6,8 +6,8 @@
 #
 # Date: 2019-01-14
 #
-#  This file defines the basic datatypes used in the DD API.
-#  Provide a description when the type is NOT a custom type.
+#  This file defines the basic datatypes used in the DD API and DD-OPER API.
+#  Provide a discription when the type is NOT a custom type.
 #  All attributes of a custum type must be described, unless the attribute is of a custom type.
 
 types:
@@ -223,18 +223,18 @@ types:
         description: The attributes of the Location object are placed within the properties group of the GeoJSON object.
         type: object
         properties:
-          url:
-            description: Url describing the location object.
+          url?:
+            description: Url describing the location object. (Not provided in case of /dd-oper requests.)
             type: string
-          node:
+          node?:
             description: Specification of the node where the location is stored.
             type: Node
-          locationId:
+          locationId?:
             description: Id of the location.
             type: string
-          locationCode:
+          locationCode?:
             type: LocationCode
-          locationName:
+          locationName?:
             description: Name of the location.
             type: LocationName
           referenceLevel?:
@@ -249,6 +249,21 @@ types:
               Remark&colon; INSPIRE does not define 'ETRS89' as such, but specifies different 'flavors' of it with a suffix. To prevent
               unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89-XYZ'.
             type: string
+          locationNameSpace?:
+            type: LocationNameSpace
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameDetail?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameGlobal?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
+          displayNameSpace?:
+            type: LocationNameSpace
+            description: Remark&colon; Only used in DD-OPER response.
+          parentName?:
+            type: LocationName
+            description: Remark&colon; Only used in DD-OPER response.
 
   LocationCode:
     type: string
@@ -280,16 +295,16 @@ types:
         description: The base URL of the node.
 
   ObservationType:
-    description: Generic DD API 2.0 quantity/parameter object. -- The DD-OPER API response returns a subset of the attributes.
+    description: Generic DD API 2.0 quantity/parameter object. The DD-OPER API response returns a subset of the attributes.
     type: object
     properties:
-      id:
+      id?:
         description: Id of the observation type.
         type: Identifier
-      url:
+      url?:
         description: The provider's URL for the time series.
         type: Url
-      node:
+      node?:
         description: Reference to the DD-node that contains the data of the time series.
         type: Node
       quantity?:
@@ -298,19 +313,23 @@ types:
       parameterCode?:
         description: Parameter code specifying the observationtype. Non-biological observation types follow the Aquo standards.
         type: string
-      description:
+      description?:
         description: Description of the observation type.
         type: string
-      unit:
+      unit?:
         description: (Measurement) unit of the observation type.
         type: string
-      compartment:
+      compartment?:
         description: The compartment in which the measurement/computation is available. Standardised Aquo compartments.
         type: string
         example:  OW, DL, GW, LW
       qualifier?:
         type: string
         description: Additional qualification of the measurement or computation. Can be used for the Aqou 'hoedanigheid'.
+      quantityName?:
+        description: Composed name of the quantity(.parameterCode) that was measured or computed.
+          Remark&colon; Only used in DD-OPER response.
+        type: QuantityName
       aspectSet?:
         description: Optional, currently only provided and used by RWS.
         type: AspectSet
@@ -422,6 +441,13 @@ types:
   Quality:
     description: Defines the quality of the result (confidence).
     type: number
+
+  QuantityName:
+    type: string
+    description: A name referencing a category of time series. The quantity names are predefined.
+      For example 'waterlevel', 'watertemperature', 'waveheight'.
+      Remark&colon; Only used in DD-OPER
+    example: waterLevel
 
   Source:
     description: Describes the type of data in the time series, and the owner of the data.

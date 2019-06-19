@@ -7,3 +7,4 @@
 | 2019-01-14 | DD team | QuantityName and LocationName will always be in lower-case. Examples updated. |
 | 2019-01-14 | DD team | Attribute crsName added to Location (GeoJSON) properties. |
 | 2019-01-14 | DD team | Provider was required in some places by mistake in the DD-API. |
+| 2019-06-19 | DD team | Split DD-API and DD-OPER-API specifications.   |
