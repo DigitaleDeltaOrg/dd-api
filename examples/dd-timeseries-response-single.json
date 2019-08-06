@@ -1,9 +1,12 @@
 {
 	"node": {
+		"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
 		"name": "LMW-Next",
-		"baseUrl": "https://www.rws.nl",
+		"baseUrl": "some-url.nl",
 		"description": "......"
 	},
+	"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+	"url": "https://some-url.nl/dd/v2/timeseries/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
 	"source": {
 		"process": "forecast",
 		"institution": {
@@ -21,15 +24,28 @@
 			]
 		},
 		"properties": {
-			"locationId": "NL.RWS.WM.Maarssen.Oostkanaaldijk",
-			"locationCode": "OSTKDK",
+			"url": "https://some-url.nl/dd/v2/locations/MAARSSEN.OKD",
+			"node": {
+				"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+				"baseUrl": "some-url.nl",
+				"name": "Matroos",
+				"description": "......"
+			},
+			"locationId": "MAARSSEN.OKD",
+			"locationCode": "MAARSSEN.OKD",
 			"locationName": "Maarssen.Oostkanaaldijk",
-			"locationNameSpace": "NL.RWS.WM",
 			"crsName": "ETRS89"
 		}
 	},
 	"observationType": {
-		"id": "WaterLevel",
+		"url": "https://some-url.nl/dd/v2/observationtypes/WaterLevel-m-OW",
+		"node": {
+			"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+			"baseUrl": "some-url.nl",
+			"name": "Matroos 1",
+			"description": "......"
+		},
+		"id": "WaterLevel-m-OW",
 		"quantity": "WaterLevel",
 		"unit": "m",
 		"compartment": "OW"

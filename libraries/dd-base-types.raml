@@ -11,10 +11,6 @@
 #  All attributes of a custum type must be described, unless the attribute is of a custom type.
 
 types:
-  AdditionalQuality:
-    type: number
-    description: Provides detailed information on specific Quality numbers.
-
   Aspect:
     description: A (usually mathematically derived) related variable of a specific measurement, forecast, etc.
     type: object
@@ -70,8 +66,6 @@ types:
         example: <
       quality?:
         type: Quality
-      additionalQuality?:
-        type: AdditionalQuality
 
   BoundingBox:
     description: The specification of a bounding box using the longitude and latitude of the most SouthWest point followed by the most NorthEast points (GeoJSON).
@@ -124,20 +118,25 @@ types:
         type: FilterError[]
 
   Event:
-    description: In case of scalar time series the event contains time stamp and value, optionally extended with
-      an interval specification (startTime/endTime/resultTime), and a quality indicator (quality, additionalQuality).
-      In case of a time series with aspects and/or with values on multiple points, the events contains object for the aspects and/or points.
     type: object
+    description: In case of scalar time series the event contains time stamp and value, optionally extended with
+      an interval specification (startTime/endTime/resultTime), and a quality indicator (quality).
+      In case of a time series with aspects and/or with values on multiple points, the events contains object for the aspects and/or points.
     properties:
-      timeStamp?:
-        description: Timestamp of the occurrence of the event.
+      timeStamp:
+        description: Timestamp of the occurrence of the event. Uses the UCT (Zulu) notation. Example&colon; 2018-01-01T00&colon;00&colon;10Z
         type: datetime
       startTime?:
-        type: StartTime
+        description: The start date/time of the interval for which an individual value in the series holds. Uses the UCT (Zulu) notation. Example&colon; 2018-01-01T00&colon;00&colon;05Z
+        type: datetime
       endTime?:
-        type: EndTime
+        description:  The end date/time of the interval for which an individual value in the series holds. Uses the UCT (Zulu) notation.
+          The endtime is exlusive, hence the period ends just before the given time.
+          2018-01-01T00&colon;00&colon;05Z - 2018-01-01T00&colon;00&colon;15Z specifies a 10 minute period starting five minutes after midnight and
+          ending just before quarter after midnight, at 2018-01-01T00&colon;09&colon;14.99999Z
+        type: datetime
       resultTime?:
-        description: Result time.
+        description: The time stamp at which the value in the startTime-endTime interval came available. Uses the UCT (Zulu) notation. Example&colon; 2018-01-01T00&colon;00&colon;15.1423Z.
         type: datetime
       value?:
         type: ValueType
@@ -146,8 +145,6 @@ types:
         type: string
       quality?:
         type: Quality
-      additionalQuality?:
-        type: AdditionalQuality
       aspects?:
         type: AspectValue[] | AspectPointsValue []
         description: When the time series contains aspects the value/quality/unit are given in an object for each aspect or aspect+point.
@@ -258,33 +255,32 @@ types:
     type: string
     example: "Hoek-van-Holland"
 
-  LocationNameSpace:
-    type: string
-    example: "NL.RWS.WM"
-
   Node:
     description: Node objects contain the properties of the DD-node that contains the data. A node is an operational implementation of the Digital Delta specification.
     type: object
     properties:
-      id?:
-        description: Id of the node.
+      id:
+        description: The node's identifier.
         type: Identifier
       name:
         type: string
         description: The name of the node.
-      description?:
+      description:
         type: string
         description: The description of the node.
-      baseUrl?:
+      baseUrl:
         type: string
         description: The base URL of the node.
 
   ObservationType:
-    description: Generic DD API 2.0 quantity/parameter object. -- The DD-OPER API response returns a subset of the attributes.
+    description: The ObservationType objects describe all attributes to correctly interpret what has been measured or computed.
     type: object
     properties:
       id:
-        description: Id of the observation type.
+        description: Id of the observation type. The usage of a uuid is encourage but not required. The identifier must be unique within the providing system,
+          because it is used as a key in one of the query parameters in the /timeseries end point.
+          For providers that deliver data in a fully Aquo-compliant way an id is suggested according to the Aquo observation type description
+          ([parameterCode][quantity][unit][qualifier][compartment]),  with the ][ replaced by dashes (phosphor-concentratio-ppm-OW).
         type: Identifier
       url:
         description: The provider's URL for the time series.
@@ -292,25 +288,30 @@ types:
       node:
         description: Reference to the DD-node that contains the data of the time series.
         type: Node
-      quantity?:
-        description: Quantity (grootheid) of the observation type.
+      quantity:
+        description: Quantity (grootheid) of the observation type. Examples of quantities are waterlevel, discharge, concentration, count, etcetera. In case of concentration and count, the concerned substance is specified by the parameterCode below.
+          Although spaces are allowed in the value of 'quantity', they are discouraged.
         type: string
       parameterCode?:
-        description: Parameter code specifying the observationtype. Non-biological observation types follow the Aquo standards.
+        description: Parameter code specifying the observationtype.
+          In case of e.g. the concentration or count (see 'quantity') the parameterCode describes the concerned substance,
+          e.g. oxygen, lead, etcetera. The parameterCode should be preferably, but not neccessarily, according to the Aquo standard.
+          In case of a simple quantity, e.g. water level, the parameterCode can be ommitted. If present,
+          it should either be the Aquo-code for that quantity (e.g. WATHTE for waterlevel) or have the same value as 'quantity'.
         type: string
-      description:
+      description?:
         description: Description of the observation type.
         type: string
       unit:
         description: (Measurement) unit of the observation type.
         type: string
-      compartment:
+      compartment?:
         description: The compartment in which the measurement/computation is available. Standardised Aquo compartments.
         type: string
         example:  OW, DL, GW, LW
       qualifier?:
         type: string
-        description: Additional qualification of the measurement or computation. Can be used for the Aqou 'hoedanigheid'.
+        description: Additional qualification of the measurement or computation. Can be used for instance for the Aquo 'hoedanigheid'.
       aspectSet?:
         description: Optional, currently only provided and used by RWS.
         type: AspectSet
@@ -320,20 +321,20 @@ types:
     type: object
     properties:
       totalObjectCount?:
-        description: The actual number of objects available. When paging is used the response contains a subset of the total obejcts available up to the max page size.
+        description: The total number of objects available at the provider. When paging is used the response contains a subset of the total objects.
         type: integer
-      maxPageSize?:
-        description: Maximum number of objects in the response. Defined by the Provider of the response.
-        type: PageSize
-      minPageSize?:
-          description: Minimum number of objects in the response. Defined by the Provider of the response.
-          type: PageSize
+      maxPageSize:
+        description: Maximum number of objects that can be returned on one page. Defined by the Provider of the response.
+        type: integer
+      minPageSize:
+          description: Minimum number of objects that will be returned in on one page. Defined by the Provider of the response.
+          type: integer
           minimum: 1
       self?:
-        description: Url of the current request.
+        description: Url of the current request. Optional, but encouraged to provide.
         type: Url | nil
       first?:
-        description: Url to the first page of the result set.
+        description: Url to the first page of the result set. Optional, but encouraged to provide.
         type: Url | nil
       prev:
         description: Url to the previous page of the result set.
@@ -342,21 +343,8 @@ types:
         description: Url to the next page of the result set.
         type: Url | nil
       last?:
-        description: Url to the last page of the result set.
+        description: Url to the last page of the result set. Optional, but encouraged to provide.
         type: Url | nil
-
-  PageNumber:
-    description: Page number in case the response is seprated in different pages.
-    type: integer
-    minimum: 1
-    example: 1
-
-  PageSize:
-    description: Number of result objects per a single response page. Used for minimum, maximum and/or actual.
-    type: integer
-    minimum: 1
-    maximum: 10000
-    example: 10
 
   PointsValue:
     type: object
@@ -371,9 +359,6 @@ types:
       quality?:
         description: Indicator for the quality of the measured or computed value in the 'value' attribute.
         type: Quality
-      additionalQuality?:
-        description: Additional information on the value in the 'quality' attribute.
-        type: AdditionalQuality
 
   Position:
     description: |
@@ -392,7 +377,7 @@ types:
 
   ProcessName:
     type: string
-    description: The name of the mechanism to collect/derive the time series value.
+    description: The name of the mechanism that was used to collect/derive/compute the time series values.
       When accessing RWS' DD-API, providing a processName as query parameter is required. The process names are pre-defined (see examples).
       Extending the processname with a suffix, referencing a more detailed mechanism like a specific calculation model, is not allowed.
       Other implementions dot need to implement this query-parameter.
@@ -432,36 +417,35 @@ types:
         type: ProcessName
       name?:
         type: SourceName
-        description: A name describing the source, e.g. a model name.
+        description: A name describing the source, e.g. a model name (D3D-DSCM, Sobek-NDB, 3Di-Texel, etcetera)
       description?:
         type: string
         description: Additional description of the data source (might contain a URL to a site with information on the model).
       realizationCount?:
         type: integer
-        description: if present, and larger then 1, the results are part of an ensemble run
+        description: if present, the results are computed by an ensemble run.
       institution:
         type: Institution
 
   SourceName:
     type: string
     description: A name describing the source, e.g. a model name
-    example: rws_prediction
+    example: D3D-DSCM, Sobek-NDB, 3Di-Texel, rws_prediction
 
   StartTime:
     type: datetime
-    example: 2016-01-01T12:45:00Z
-    description:  Start date/time of the time series, or the Start date/time of the interval for an individual value in the series. Uses the UCT (Zulu) notation.
+    description:  Start date/time of the time series. Uses the UCT (Zulu) notation. Example&colon; 2016-01-01T12:45:00Z
 
   Timeseries:
     description: Generic DD API 2.0 time series object. The DD-OPER API response returns a subset of the attributes.
     type: object
     properties:
-      node?:
+      node:
         type: Node
-      url?:
+      url:
         description: The provider's URL for the time series.
         type: string
-      id?:
+      id:
         type: Identifier
       source:
         type: Source
@@ -476,22 +460,27 @@ types:
         description: End date-time of the time series (the last timestamp/value pair available in the series).
         type: datetime
       analysisTime?:
-        description: Analysis date-time of the time series.
+        description: Analysis date-time of the time series, i.e. the date-time that the series was computed. Used for model results.
         type: datetime
       realization?:
-        description: Realization count.
+        description: Realization index. Has to be present if source.realizationCount is present.
+          The value should be 0 to realizationCount-1 (zero based).
         type: number
       intervalLength?:
-        description: Specifies the interval between events in the time series. If present and set to 'null', the time series is non-equidistant. TODO&colon; decide on options for units.
+        description: Specifies the interval between events in the time series, given in seconds (TODO&colon; decide on options for units).
+          If not present, or present and set to 'null', the time series is non-equidistant.
         type: number
       valueType?:
-        type: ValueType
+        type: string
+        description: The type of values in the time series (float, integer, categorized).
       qualifier?:
         type: string
         description: Additional qualification of the measurement or computation.
       events?:
         type: Event[]
-        description: If no startTime and no endTime are provided in the /time series-query, only meta-data is provided,
+        description: The events. Per time stamp a value
+          (or, in case of aspect-sets and/or multipoint locations, values for the aspects and/or points).
+          If no startTime and no endTime are provided in the /timeseries-query, only meta-data is provided,
           so the events are not present.
 
   Timestamp:
@@ -502,7 +491,7 @@ types:
 
   ValueType:
     type: number | string
-    description: The type of values in the time series ('string' in case of categorized values, like 'natuurlijk' vs 'aangelegd'). Also known as QuantityValue.
+    description: The actual values in the time series ('string' in case of categorized values, like 'natuurlijk' vs 'aangelegd'). Also known as QuantityValue.
 
   Url:
     type: string

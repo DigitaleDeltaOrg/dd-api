@@ -265,9 +265,6 @@ types:
         aspectSet?:
           type: DD-T.AspectSetName
           description: Remark&colon; Only required for systems that implement aspect sets
-        quantityName?:
-          type: DD-T.QuantityName
-          description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
         intervalLength?:
           type: DD-T.IntervalLength
           description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
@@ -288,9 +285,10 @@ types:
       get:
         description: Request a specific (single) Timeseries by its unique identifier.
         queryParameters:
-          process?:
-            type: DD-T.ProcessName
-            default: measurement
+          startTime?:
+            type: DD-T.StartTime
+          endTime?:
+            type: DD-T.EndTime
         responses:
           200:
             description: |

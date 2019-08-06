@@ -1,6 +1,12 @@
 {
-		"url": "https://some-url.nl/dd/v2/observationtypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
-		"id": "Neerslag",
+		"url": "https://some-url.nl/dd/2.0/observationTypes/Neerslag-mm-dag-LT",
+		"node": {
+			"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+			"baseUrl": "some-url.nl",
+			"name": "Matroos",
+			"description": "......"
+		},
+		"id": "Neerslag-mm-dag-LT",
 		"quantity": "Neerslag",
 		"compartment": "LT",
 		"description": "Neerslag",

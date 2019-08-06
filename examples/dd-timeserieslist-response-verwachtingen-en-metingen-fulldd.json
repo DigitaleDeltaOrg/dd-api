@@ -50,16 +50,21 @@
 						"name": "Matroos 1",
 						"description": "......"
 					},
-					"url": "https://some-url.nl/dd/v2/locations/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
-					"locationId": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+					"url": "https://some-url.nl/dd/v2/locations/abcdefgh-ijkl-mnop-qrst-uvwxyz654321",
+					"locationId": "abcdefgh-ijkl-mnop-qrst-uvwxyz654321",
 					"locationCode": "ResultLocA",
 					"locationName": "HIRLAM result location A",
-					"locationNameSpace": "NL.RWS.WM",
 					"crsName": "ETRS89"
 				}
 			},
 			"observationType": {
 				"url": "https://some-url.nl/dd/v2/observationtypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+				"node": {
+					"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+					"baseUrl": "https://www.rws.nl",
+					"name": "Matroos 1",
+					"description": "......"
+				},
 				"id": "Neerslag",
 				"quantity": "Neerslag",
 				"compartment": "LT",
@@ -125,6 +130,12 @@
 			},
 			"observationType": {
 				"url": "https://some-url.nl/dd/v2/observationtypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+				"node": {
+					"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+					"baseUrl": "https://www.rws.nl",
+					"name": "Matroos 1",
+					"description": "......"
+				},
 				"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
 				"quantity": "waterhoogte",
 				"parameterCode": "WATHTE",
@@ -187,13 +198,17 @@
 					"url": "https://some-url.nl/dd/v2/locations/NL.RWS.WM.Maarssen.Oostkanaaldijk",
 					"locationId": "NL.RWS.WM.Maarssen.Oostkanaaldijk",
 					"locationCode": "OSTKDK",
-					"locationName": "Maarssen.Oostkanaaldijk",
-					"parentName": "noordzeekanaal-amsterdamrijnkanaal",
-					"locationNameSpace": "NL.RWS.WM"
+					"locationName": "Maarssen.Oostkanaaldijk"
 				}
 			},
 			"observationType": {
 				"url": "https://some-url.nl/dd/v2/observationtypes/Concentration.Phosphor",
+				"node": {
+					"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+					"baseUrl": "https://www.rws.nl",
+					"name": "Matroos 1",
+					"description": "......"
+				},
 				"id": "Concentration.Phosphor",
 				"quantity": "Concentration",
 				"unit": "ppm",

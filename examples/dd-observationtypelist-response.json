@@ -12,16 +12,28 @@
 	},
 	"results": [
 		{
-			"url": "https://some-url.nl/dd/2.0/observationTypes/abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
-			"id": "Neerslag",
+			"url": "https://some-url.nl/dd/2.0/observationTypes/Neerslag-mm-dag-LT",
+			"node": {
+				"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+				"baseUrl": "some-url.nl",
+				"name": "Matroos",
+				"description": "......"
+			},
+			"id": "Neerslag-mm-dag-LT",
 			"quantity": "Neerslag",
 			"compartment": "LT",
 			"description": "Neerslag",
 			"unit": "mm/d"
 		},
 		{
-			"url": "https://some-url.nl/dd/2.0/observationTypes/abcdefgh-ijkl-mnop-qrst-293892832",
-			"id": "Verdamping",
+			"url": "https://some-url.nl/dd/2.0/observationTypes/Verdamping-mm-dag-LT",
+			"node": {
+				"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+				"baseUrl": "some-url.nl",
+				"name": "Matroos",
+				"description": "......"
+			},
+			"id": "Verdamping-mm-dag-LT",
 			"quantity": "Verdamping",
 			"compartment": "LT",
 			"description": "Verdamping",
