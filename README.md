@@ -40,7 +40,7 @@ To be able to use the RAML files, please consult the [tools](https://github.com/
 Version 2.0. includes two specifications.
 The [DD-API 2.0.1](dd.v201.raml) of the specification is the 'general purpose' specification, with Url's that facilitate both searching for and retrieving data. Hence it both for discovery and for getting data.
 
-The Operational extension ["DD-OPER-API"](dd-oper.v201.raml) is an extension developed for/by Rijkswaterstaat, designed to retrieve data using a fixed strict Url-path. It only differs from the generic version in the Url-syntax. The DD-OPER-API does not support discovery.
+The Operational extension ["DD-OPER-API"](oper/dd.v201.raml) is an extension developed for/by Rijkswaterstaat, designed to retrieve data using a fixed strict Url-path. It only differs from the generic version in the Url-syntax. The DD-OPER-API does not support discovery.
 
 The changes between version 1.0 and 2.0.1 are described [here](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/documentation/Changes_between_1.0_and_2.0.md).
 

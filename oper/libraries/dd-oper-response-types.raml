@@ -9,9 +9,9 @@
 #  This file defines the response layouts used by /DD-OPER API 2.0.
 #
 uses:
-  DD-T: dd-base-types.raml
-  DDOPER-T: ddoper-base-types.raml
-  GENERIC-RESP: generic-response-types.raml
+  DD-T: ../../libraries/dd-base-types.raml
+  DDOPER-T: dd-oper-base-types.raml
+  GENERIC-RESP: ../../libraries/generic-response-types.raml
 
 types:
 #
@@ -62,4 +62,4 @@ types:
     properties:
       results:
         type: DD-T.Timeseries[]
-        description: Timeseries objects with multiple event values. Defined as List for compatibility with DD API.
+        description: Timeseries objects with multiple event values. Defined as List for compatibility with DD-API.

@@ -12,3 +12,4 @@
 | 2019-01-14 | RWS   | QuantityName and LocationName values are used as url parameters and will always be in lower-case. |
 | 2019-01-14 | RWS   | Attribute crsName added to Location (GeoJSON) properties.   |
 | 2019-06-19 | DD team | Split DD-API and DD-OPER-API specifications. |  
+| 2019-11-10 | DD team | Further splitting of DD-API and DD-OPER. |
