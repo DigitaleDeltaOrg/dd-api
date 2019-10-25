@@ -1,36 +1,30 @@
 #%RAML 1.0
-title: Digitale Delta - Operational (DD-OPER) API
+title: Digitale Delta - Operational (DD-OPER)
 version: 2.0.1
 securitySchemes:
   basic:
     type: Basic Authentication
-
 baseUri: http://api.rws.nl/dl/
-
 mediaType: [ application/json ]
-
-description: Digital Delta - Operational API - version 2.0.1
+description: Digital Delta - Operational API - version 2.0.1 - Internal use for Rijkswaterstaat (RWS) only
 documentation:
   - title: Introduction
-    content: !include documentation/dd-oper/Introduction.md
-
+    content: !include documentation/Introduction.md
   - title: The API specification
-    content: !include documentation/dd-oper/The_API_Specification.md
-
+    content: !include documentation/The_API_Specification.md
   - title: Modification History
-    content: !include documentation/dd-oper/Document_History.md
+    content: !include documentation/Document_History.md
 
 # HTTP protocol is included as (optional) protocol for internal use. HTTPS support is mandatory for external communication.
 protocols: [HTTP, HTTPS]
-
 uses:
-    DD-T: libraries/dd-base-types.raml
-    DDOPER-T: libraries/ddoper-base-types.raml
-    GENERIC-RESP: libraries/generic-response-types.raml
-    DDOPER-RESP: libraries/ddoper-response-types.raml
+    DD-T: ../libraries/dd-base-types.raml
+    DDOPER-T: libraries/dd-oper-base-types.raml
+    GENERIC-RESP: ../libraries/generic-response-types.raml
+    DDOPER-RESP: libraries/dd-oper-response-types.raml
 
 types:
-# All data types are defined in external files (see above) so they can be shared between DD and DD-OPER API.
+# All data types are defined in external files (see above).
 
 traits:
   #
@@ -42,21 +36,21 @@ traits:
         body:
           application/json:
             type: GENERIC-RESP.ErrorResponse
-            example: !include examples/dd-oper/dd-oper-error-response.json
+            example: !include examples/dd-oper-error-response.json
   has404-NotFoundError:
     responses:
       404:
         body:
           application/json:
             type: GENERIC-RESP.ErrorResponse
-            example: !include examples/dd-oper/dd-oper-error-response.json
+            example: !include examples/dd-oper-error-response.json
   has500-ServerError:
     responses:
       500:
         body:
           application/json:
             type: GENERIC-RESP.ErrorResponse
-            example: !include examples/dd-oper/dd-oper-error-response.json
+            example: !include examples/dd-oper-error-response.json
 
 # The resources:
 /dd-oper/2.0:
@@ -76,7 +70,7 @@ traits:
           body:
             application/json:
               type: DDOPER-RESP.QuantityListResponse
-              example: !include examples/dd-oper/dd-oper-quantitylist-response.json
+              example: !include examples/dd-oper-quantitylist-response.json
 
     /{quantityName}:
       uriParameters:
@@ -89,7 +83,7 @@ traits:
             body:
               application/json:
                 type: DDOPER-RESP.QuantityResponse
-                example: !include examples/dd-oper/dd-oper-quantity-response.json
+                example: !include examples/dd-oper-quantity-response.json
       is: [has400-InvalidRequestError, has404-NotFoundError]
 
       /locations:
@@ -102,7 +96,7 @@ traits:
               body:
                 application/json:
                   type: DDOPER-RESP.LocationListResponse
-                  example: !include examples/dd-oper/dd-oper-locationslist-response.json
+                  example: !include examples/dd-oper-locationslist-response.json
 
 # ########################################################
   /locations:
@@ -116,7 +110,7 @@ traits:
           body:
             application/json:
               type: DDOPER-RESP.LocationListResponse
-              example: !include examples/dd-oper/dd-oper-locationslist-response.json
+              example: !include examples/dd-oper-locationslist-response.json
 
     /{locationName}:
       uriParameters:
@@ -130,7 +124,7 @@ traits:
             body:
               application/json:
                 type: DDOPER-RESP.LocationResponse
-                example: !include examples/dd-oper/dd-oper-location-response.json
+                example: !include examples/dd-oper-location-response.json
       is: [has400-InvalidRequestError, has404-NotFoundError]
 
 ######################################################
@@ -144,7 +138,7 @@ traits:
               body:
                 application/json:
                   type: DDOPER-RESP.QuantityListResponse
-                  example: !include examples/dd-oper/dd-oper-quantitylist-response.json
+                  example: !include examples/dd-oper-quantitylist-response.json
 
         /{quantityName}:
           uriParameters:
@@ -157,7 +151,7 @@ traits:
                 body:
                   application/json:
                     type: DDOPER-RESP.QuantityResponse
-                    example: !include examples/dd-oper/dd-oper-quantity-response.json
+                    example: !include examples/dd-oper-quantity-response.json
           is: [has400-InvalidRequestError, has404-NotFoundError]
 
 ############################################################
@@ -173,7 +167,7 @@ traits:
                   type: DD-T.EndTime
                   required: false
                 intervalLength:
-                  type: DD-T.IntervalLength
+                  type: DDOPER-T.IntervalLength
                   required: false
                   default: 10min
                 aspectSet:
@@ -184,12 +178,18 @@ traits:
                   type: DD-T.ProcessName
                   required: true
                   default: measurement
-              responses:
+                quantityName:
+                  type: DD-T.QuantityName
+                  required: true
+                intervalLength:
+                  type: DD-T.IntervalLength
+                  required: true
+            responses:
                 200:
                   description: |
                     Succesfully retrieved timeseries
                   body:
                     application/json:
-                      type: DDOPER-RESP.TimeseriesListResponse
-                      example: !include examples/dd-oper/dd-oper-timeseries-full-response.json
+                      type: DD-RESP.TimeseriesListResponse
+                      example: !include examples/dd-oper-timeseries-full-response.json
             is: [has400-InvalidRequestError, has500-ServerError]

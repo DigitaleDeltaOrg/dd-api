@@ -9,9 +9,14 @@
 #  This file defines specific datatypes only used in the DD-OPER API, and/or extends base datatypes of the DD-API.
 
 uses:
-  DD-T: dd-base-types.raml
+  DD-T: ../../libraries/dd-base-types.raml
 
 types:
 
   LocationName:
     type: DD-T.LocationName
+
+  IntervalLength:
+    type: string
+    description: Interval length of the sequence.
+    default: 10min

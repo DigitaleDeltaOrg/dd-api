@@ -42,21 +42,27 @@ traits:
     queryParameters:
       timeseriesFilter?:
         type: DD-T.Filter
-        description: New, optional functionality.
+        description: Optional functionality that a provider may offer for advanced filtering
+          to receive a specific set of objects in the response.
+          See for the filter syntax the (DD-ECO-API)[https://digitaldelta.org/DigitalDeltaEcoDiscovery.html]
 
   locationFilterable:
     description: Defines query parameters for location filter requests.
     queryParameters:
       locationFilter?:
         type: DD-T.Filter
-        description: New, optional functionality.
+        description: Optional functionality that a provider may offer for advanced filtering
+          to receive a specific set of objects in the response.
+          See for the filter syntax the (DD-ECO-API)[https://digitaldelta.org/DigitalDeltaEcoDiscovery.html]
 
   observationTypeFilterable:
     description: Defines query parameters for observation type filter requests.
     queryParameters:
       observationTypeFilter?:
         type: DD-T.Filter
-        description: New, optional functionality.
+        description: Optional functionality that a provider may offer for advanced filtering
+          to receive a specific set of objects in the response.
+          See for the filter syntax the (DD-ECO-API)[https://digitaldelta.org/DigitalDeltaEcoDiscovery.html]
 
 #
 # Responses Error Codes

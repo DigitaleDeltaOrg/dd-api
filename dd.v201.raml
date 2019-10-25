@@ -1,5 +1,5 @@
 #%RAML 1.0
-title: Digitale Delta - API
+title: Digitale Delta (DD)
 version: 2.0.1
 securitySchemes:
   basic:
@@ -31,7 +31,7 @@ uses:
   TRAITS: libraries/dd-traits.raml
 
 #
-# All data types are defined in external files (see above) so they can be shared between DD and DD-OPER API.
+# All data types are defined in external files (see above).
 #
 types:
 
@@ -44,7 +44,7 @@ types:
   /nodes:
     get:
       description: |
-        A (data)node is an area from which resource objects can be retrieved.
+        A (data-)node is an area from which resource objects can be retrieved. A node may have to access multiple sources to obtain information.
       is: [ TRAITS.pageable, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError ]
       queryParameters:
         process?:
@@ -52,7 +52,7 @@ types:
         name?:
           type: string
           description: (Partial) name of the node. Partial meaning startsWith(...).
-          example: RwsPrimaryNode
+          example: PrimaryNode
       responses:
         200:
           description: |
@@ -86,7 +86,7 @@ types:
     is: [ TRAITS.pageable, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError ]
     get:
       description: |
-        A (data)source describes the source of the data. A node can have multiple data sources.
+        A (data-)source describes the source of the data. A node can have multiple data sources.
       queryParameters:
         process?:
           type: DD-T.ProcessName
@@ -170,7 +170,7 @@ types:
         responses:
           200:
             description: |
-              Succesfully retrieved resource
+              Succesfully retrieved resource.
             body:
               application/json:
                 type: object
@@ -181,7 +181,7 @@ types:
   /observationtypes:
     get:
       description: |
-        ObservationType objects describe all attributes to correctly interpret what has been measured, and in what way. It is essential to have the quantity field.
+        ObservationType objects describe all attributes to correctly interpret what has been measured, and in what way. The quantity field is essential.
       is: [ TRAITS.pageable, TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.observationTypeFilterable ]
       queryParameters:
         process?:
@@ -227,7 +227,7 @@ types:
   /timeseries:
     get:
       description: |
-        TimeSeriesType objects describe the type of measurement the timeseries contains. These can be for example raw measurements, but also aggregations or simulations. This information could be needed to correctly interpret the measurement values.
+        TimeSeriesType objects describe the type of measurement that the timeseries contains. These can be, for example, raw measurements, but also aggregations or simulations. This information could be needed to correctly interpret the measurement values.
         A request where both startTime and endTime are omitted returns a response with just the metadata.
       is: [ TRAITS.pageable, TRAITS.has400-InvalidRequestError, TRAITS.has403-AccessDeniedError, TRAITS.has500-ServerError, TRAITS.timeseriesFilterable, TRAITS.locationFilterable, TRAITS.observationTypeFilterable ]
       queryParameters:
@@ -264,13 +264,12 @@ types:
           type: string
         aspectSet?:
           type: DD-T.AspectSetName
-          description: Remark&colon; Only required for systems that implement aspect sets
+          description: Remark&colon; Only required for systems that implement aspect sets.
         quantityName?:
           type: DD-T.QuantityName
-          description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
         intervalLength?:
           type: DD-T.IntervalLength
-          description: Remark&colon; Only required for systems that are accessed by RWS's MKK-DL
+
       responses:
         200:
           description: |

@@ -8,8 +8,16 @@
 		]
 	},
 	"properties": {
+		"url": "https://some-url.nl/dd/v2/locations/MAARSSEN.OKD",
+		"node": {
+			"id": "abcdefgh-ijkl-mnop-qrst-uvwxyz123456",
+			"baseUrl": "some-url.nl",
+			"name": "Matroos",
+			"description": "......"
+		},
+		"locationId": "MAARSSEN.OKD",
+		"locationCode": "MAARSSEN.OKD",
 		"locationName": "Maarssen.Oostkanaaldijk",
-		"locationNameSpace": "NL.RWS.WM",
 		"crsName": "ETRS89"
 	},
 	"provider": {
