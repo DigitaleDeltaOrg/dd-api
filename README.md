@@ -36,13 +36,18 @@ The [HTML specifications](https://digitaledeltaorg.github.io/dd.v201.html) can a
 The easiest way to get the specification is to download the generated HTML files.
 To be able to use the RAML files, please consult the [tools](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Tools) section. Knowledge of the [RAML language](https://raml.org) is then recommended.
 
-## The specification
+## The DD-API 2.0 specification
+
+The changes between version 1.0 and 2.0.1 are described [here](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/documentation/Changes_between_1.0_and_2.0.md).
+
 Version 2.0. includes two specifications.
 The [DD-API 2.0.1](dd.v201.raml) of the specification is the 'general purpose' specification, with Url's that facilitate both searching for and retrieving data. Hence it both for discovery and for getting data.
 
-The Operational extension ["DD-OPER-API"](oper/dd-oper.v201.raml) is an extension developed for/by Rijkswaterstaat, designed to retrieve data using a fixed strict Url-path. It only differs from the generic version in the Url-syntax. The DD-OPER-API does not support discovery.
+The OPERational extension ["DD-OPER-API"](oper/dd-oper.v201.raml) is an extension developed for/by Rijkswaterstaat, designed to retrieve data using a fixed strict Url-path. It only differs from the generic version in the Url-syntax. The DD-OPER-API provides a different set of endpoints for discovery.
 
-The changes between version 1.0 and 2.0.1 are described [here](https://github.com/DigitaleDeltaOrg/dd-api/blob/master/documentation/Changes_between_1.0_and_2.0.md).
+Additional documentation can be found on [https://digitaledeltaorg.github.io](https://digitaledeltaorg.github.io), including readable version of the specification (HTML generated from the RAML):
+* [dd.v201.html](https://digitaledeltaorg.github.io/dd.v201.html) (general DD-API)
+* [dd-oper.v201.html](https://digitaledeltaorg.github.io/dd-oper.v201.html) (DD-OPER extension)
 
 ## Implementations
 The [Current Implementations](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Current-implementations) contains the most recent list of implementations of the Digital Delta Specifications.

@@ -75,6 +75,8 @@ types:
 
   BoundingBox:
     description: The specification of a bounding box using the longitude and latitude of the most SouthWest point followed by the most NorthEast points (GeoJSON).
+      The coordinate reference system is WGS84 (which is the default for GeoJSON). Note&colon; If in the <a href="https://github.com/DigitaleDeltaOrg/dd-grid-api">DD-GRID-API</a> we decide to introduce a boundingbox CRS,
+      we will extend the DD-API accordingly.
     type: Double[]
     minItems: 4
     maxItems: 4
@@ -204,7 +206,7 @@ types:
 
   IntervalLength:
     type: string
-    description: Interval length of the sequence.
+    description: Interval length of the sequence in seconds. A special value is "10min", for backwards compatibility
     default: 10min
 
   Location:
@@ -242,11 +244,11 @@ types:
           crsName?:
             description: The coordinate reference system of the given coordinates according to the INSPIRE definition
               (see url https&colon;//inspire.ec.europa.eu/documents/Data_Specifications/INSPIRE_Specification_CRS_v3.0.pdf section 4.4.1)
-              GeoJSON does nolonger support reference to a Coordinate Reference System. It assumes coordinates are defined according WGS84.
+              GeoJSON does nolonger support reference to a Coordinate Reference System. It assumes coordinates are defined according to WGS84.
               However, within DD-API there is a need to provide coordinates in different coordinate-systems, for instance ETRS89.
-              The element is optional and when omitted WGS84 should be assumed.
+              The element is optional, and when omitted WGS84 must be assumed.
               Remark&colon; INSPIRE does not define 'ETRS89' as such, but specifies different 'flavors' of it with a suffix. To prevent
-              unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89-XYZ'.
+              unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89 Geodetic (EPSG&colon;4258)'.
             type: string
           locationNameSpace?:
             type: LocationNameSpace
@@ -395,7 +397,7 @@ types:
 
   Position:
     description: |
-      A location specified in an array with longitude, lattitude and optional altitude.
+      A location specified in an array with longitude, lattitude and optional altitude. If the specified crsName refers to a metric system, the position is in x, y, z.
     type: Double[]
     minItems: 2
     maxItems: 3
@@ -504,10 +506,10 @@ types:
         description: Analysis date-time of the time series.
         type: datetime
       realization?:
-        description: Realization count.
+        description: Realization index.
         type: number
       intervalLength?:
-        description: Specifies the interval between events in the time series. If present and set to 'null', the time series is non-equidistant. TODO&colon; decide on options for units.
+        description: Specifies the interval between events in the time series in seconds. If present and set to 'null', the time series is non-equidistant.
         type: number
       valueType?:
         type: ValueType
