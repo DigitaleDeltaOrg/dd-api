@@ -8,5 +8,6 @@
 | 2019-01-14 | DD team | Attribute crsName added to Location (GeoJSON) properties. |
 | 2019-01-14 | DD team | Provider was required in some places by mistake in the DD-API. |
 | 2019-06-19 | DD team | Split DD-API and DD-OPER specifications, to be able to improve the documentation of the DD-API. |
-| 2019-08-06 | DD team | Improve documentation of the DD-API (DD-OPER documenation unchanged). |
-| 2019-11-10 | DD team | Further splitting of DD-API and DD-OPER. |
+| 2019-08-06 | DD team | Improved documentation of the DD-API (DD-OPER documentation unchanged). |
+| 2019-10-11 | DD team | Further splitting of DD-API and DD-OPER. |
+| 2019-10-28 | DD team | Improved documentation of the DD-API, after review by the architecture board. |
