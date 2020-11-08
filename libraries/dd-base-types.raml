@@ -13,7 +13,7 @@
 types:
   AdditionalQuality:
     type: number
-    description: Provides detailed information on specific Quality numbers.
+    description: Provides detailed information on specific Quality numbers. Remark&colon; Only used in DD-OPER response.
 
   Aspect:
     description: A (usually mathematically derived) related variable of a specific measurement, forecast, etc.
@@ -206,7 +206,7 @@ types:
 
   IntervalLength:
     type: string
-    description: Interval length of the sequence in seconds. A special value is "10min", for backwards compatibility
+    description: Interval length of the sequence in seconds. A special value is "10min", for backwards compatibility. This will become obsolete in a future version.
     default: 10min
 
   Location:
@@ -231,7 +231,7 @@ types:
             description: Specification of the node where the location is stored.
             type: Node
           locationId?:
-            description: Id of the location.
+            description: Id of the location. Mandatory in DD-API, optional in DD-OPER
             type: string
           locationCode?:
             type: LocationCode
@@ -494,6 +494,7 @@ types:
         type: Source
       location:
         type: Location
+        description: The location of the time series.
       observationType:
         type: ObservationType
       startTime:
