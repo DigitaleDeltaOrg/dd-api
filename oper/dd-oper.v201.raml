@@ -1,6 +1,6 @@
 #%RAML 1.0
 title: Digitale Delta - Operational (DD-OPER)
-version: 2.0.1
+version: 2.0.1.1
 securitySchemes:
   basic:
     type: Basic Authentication
@@ -24,7 +24,7 @@ uses:
     DDOPER-RESP: libraries/dd-oper-response-types.raml
 
 types:
-# All data types are defined in external files (see above).
+# All data types are defined in external files (see above) so they can be shared between DD and DD-OPER API.
 
 traits:
   #
@@ -51,6 +51,24 @@ traits:
           application/json:
             type: GENERIC-RESP.ErrorResponse
             example: !include examples/dd-oper-error-response.json
+  #
+  # Filter on timeseries. This trait is copied from DD-API trait file
+  #
+  timeseriesFilterable:
+    description: Defines query parameters for timeseries filter requests.
+    queryParameters:
+      timeseriesFilter?:
+        type: DD-T.Filter
+        description: Optional functionality, identical to definition/use in DD-API
+  #
+  # Allow _extendScope on specific catalogue endpoints.
+  #
+  extendScope:
+    description: Defines query parameters for timeseries filter requests.
+    queryParameters:
+      _extendScope?:
+        type: string
+        description: Allows passing of keywords to request a specific (sub)set of data in the response. Only available to specific users.
 
 # The resources:
 /dd-oper/2.0:
@@ -88,6 +106,7 @@ traits:
 
       /locations:
         get:
+          is: [extendScope]
           description: |
             Request the list of locations (within the NL.RWS.WM namespace) at which a specific quantity is available.
           queryParameters:
@@ -119,6 +138,7 @@ traits:
       get:
         description: |
           Request a specific location by its matching name (case-sensitive match)
+        queryParameters:
         responses:
           200:
             body:
@@ -130,6 +150,7 @@ traits:
 ######################################################
       /quantities:
         get:
+          is: [extendScope]
           description: |
             The quantities endpoint returns the list of quantities available at the selected location.
           queryParameters:
@@ -152,7 +173,7 @@ traits:
                   application/json:
                     type: DDOPER-RESP.QuantityResponse
                     example: !include examples/dd-oper-quantity-response.json
-          is: [has400-InvalidRequestError, has404-NotFoundError]
+          is: [has400-InvalidRequestError, has404-NotFoundError, extendScope]
 
 ############################################################
           /timeseries:
@@ -167,7 +188,7 @@ traits:
                   type: DD-T.EndTime
                   required: false
                 intervalLength:
-                  type: DDOPER-T.IntervalLength
+                  type: DD-T.IntervalLength
                   required: false
                   default: 10min
                 aspectSet:
@@ -184,6 +205,6 @@ traits:
                     Succesfully retrieved timeseries
                   body:
                     application/json:
-                      type: DD-RESP.TimeseriesListResponse
-                      example: !include examples/dd-oper-timeseries-full-response.json
-            is: [has400-InvalidRequestError, has500-ServerError]
+                      type: DDOPER-RESP.TimeseriesListResponse
+                      example: !include examples/dd-oper/dd-oper-timeseries-full-response.json
+            is: [has400-InvalidRequestError, has500-ServerError, timeseriesFilterable]

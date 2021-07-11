@@ -13,3 +13,7 @@
 | 2019-01-14 | RWS   | Attribute crsName added to Location (GeoJSON) properties.   |
 | 2019-06-19 | DD team | Split DD-API and DD-OPER-API specifications. |  
 | 2019-11-10 | DD team | Further splitting of DD-API and DD-OPER. |
+| 2020-10-08 | RWS   | Added queryParameter 'extendScope' on endpoints /quantity/{}/locations and /locations/{}/quantity.  
+| 2020-10-08 | RWS   | Added queryParameter 'timeseriesFilter' on DD-OPER endpoint /location{}/quantities/{}/timeseries via a TRAIT.  
+
+
