@@ -2,9 +2,9 @@
 
 # Name: dd-base-types.raml
 #
-# Version: 2.0.1
+# Version: 2.0.2
 #
-# Date: 2019-01-14
+# Date: 2021-07-11
 #
 #  This file defines the basic datatypes used in the DD API and DD-OPER API.
 #  Provide a discription when the type is NOT a custom type.
@@ -40,7 +40,7 @@ types:
         minItems: 0
 
   AspectSetName:
-    description: Name of an AspectSet. If implementing systems require an aspect-filter in the request-url and it is omitted, "default" is taken.
+    description: Name of an AspectSet. If implementing systems require an aspect-filter in the request-url and it is omitted, "standard" is taken.
     type: string
     example: "MinimumMaximumAverage"
 
