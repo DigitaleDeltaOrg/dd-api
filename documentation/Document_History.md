@@ -11,3 +11,6 @@
 | 2019-08-06 | DD team | Improved documentation of the DD-API (DD-OPER documentation unchanged). |
 | 2019-10-11 | DD team | Further splitting of DD-API and DD-OPER. |
 | 2019-10-28 | DD team | Improved documentation of the DD-API, after review by the architecture board. |
+| 2020-09-11 | DD team | Adjusted documentation according to suggestions in issues |
+| 2021-09-24 | DD team | Various small improvements in documentation, leading to v 2.0.2  |
+

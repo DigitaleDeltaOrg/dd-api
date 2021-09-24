@@ -1,17 +1,23 @@
-# Changes between version 1.0 and 2.0.1
+# Changes between version 1.0 and 2.0.x
 
 ## Introduction
-This document describes the changes between versions 1.0 of the specification and version 2.0.1.  
-`Todo: update according to latest changes (all minor)`
+This document describes the changes between versions 1.0 of the specification and version 2.0.x. These changes can be summarized as:
+* Renaming of some attributes, e.g. for consistency reasons, or to clarify the content of the attribute
+* Adjusting some resource object types in the response in order to let them adhere better to standards. For instance, the Location objects now is a GeoJSON object) and the paging information has been re-arranged according the DSO API guidelines.
+* Adding attributes to the Timeseries object that facilitate the definition of computation results and ensemble runs.
+* Adding interval information to the values in a Timeseries
+* Adding the concept of aspect sets, a mechanism to group related time series, e.g. the minimum, maximum and average of a measured quantity, or the direction and amplitude of wave field.
+
+_Due to the nature of the changes, versions 2.0.2 and 2.0.1 are not backwards compatible with version 1.0._  
 
 ## Type changes
-(Almost) all types have changed in version 2.0.1, but may not require many changes to the implementing code.
+(Almost) all types have changed in version 2.0.x, but may not require many changes to the implementing code.
 
 ### Generic to all types
 ##### UUIDs replaced by IDs
 The requirement that every object must be identified by a fixed UUID, will be changed. Every object will now require an identifying id, which is a string. If providers want to keep using a UUID, they just need to change the name of the property to ID.
 
-### New types
+### New types in 2.0.x
 ##### AspectSet
 Defines an aspect set.
 

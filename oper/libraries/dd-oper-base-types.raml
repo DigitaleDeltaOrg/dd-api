@@ -2,11 +2,13 @@
 
 # Name: ddoper-base-types.raml
 #
-# Version: 2.0.1
+# Version: 2.0.1.1
 #
-# Date: 2019-01-14
+# Date: 2021-07-11
 #
 #  This file defines specific datatypes only used in the DD-OPER API, and/or extends base datatypes of the DD-API.
+#  As most datatypes are now identical the file can be made onsolete. However to allow deviation again in the future or in extended versions of DD_OPER
+#  the file is retained. There must be at least one datatype defined to prevent errors. 
 
 uses:
   DD-T: ../../libraries/dd-base-types.raml
@@ -15,8 +17,3 @@ types:
 
   LocationName:
     type: DD-T.LocationName
-
-  IntervalLength:
-    type: string
-    description: Interval length of the sequence.
-    default: 10min

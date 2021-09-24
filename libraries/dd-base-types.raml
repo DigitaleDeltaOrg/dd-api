@@ -2,9 +2,9 @@
 
 # Name: dd-base-types.raml
 #
-# Version: 2.0.1
+# Version: 2.0.2
 #
-# Date: 2019-01-14
+# Date: 2021-07-11
 #
 #  This file defines the basic datatypes used in the DD API and DD-OPER API.
 #  Provide a discription when the type is NOT a custom type.
@@ -40,7 +40,7 @@ types:
         minItems: 0
 
   AspectSetName:
-    description: Name of an AspectSet. If implementing systems require an aspect-filter in the request-url and it is omitted, "default" is taken.
+    description: Name of an AspectSet. If implementing systems require an aspect-filter in the request-url and it is omitted, "standard" is taken.
     type: string
     example: "MinimumMaximumAverage"
 
@@ -127,8 +127,13 @@ types:
 
   Event:
     description: In case of scalar time series the event contains time stamp and value, optionally extended with
-      an interval specification (startTime/endTime/resultTime), and a quality indicator (quality, additionalQuality).
-      In case of a time series with aspects and/or with values on multiple points, the events contains object for the aspects and/or points.
+      an interval specification (startTime/endTime/resultTime) and a quality indicator (and in case of DD-OPER an additionalQuality attribute).
+      In case of a time series for which the observation type contains an AspectSet and/or for which the location is specified as MultiPoint,
+      the event contains objects for the aspects and/or points. If both aspects and multiple points are present, the values are grouped per
+      aspect, with the values per point in an aspect object.
+      See <a href="https://digitaledeltaorg.github.io/dd-profiles-and-aspects.html">dd-profiles-and-aspects.html</a> for an example
+      of an AspectSet (minimum, maximum and average of a quantity) combined with a MultiPoint location (a measurement location with
+      sensors on multiple depths).
     type: object
     properties:
       timeStamp?:
@@ -206,7 +211,7 @@ types:
 
   IntervalLength:
     type: string
-    description: Interval length of the sequence.
+    description: Interval length of the sequence in seconds. A special value is "10min", for backwards compatibility. This will become obsolete in a future version.
     default: 10min
 
   Location:
@@ -248,7 +253,7 @@ types:
               However, within DD-API there is a need to provide coordinates in different coordinate-systems, for instance ETRS89.
               The element is optional, and when omitted WGS84 must be assumed.
               Remark&colon; INSPIRE does not define 'ETRS89' as such, but specifies different 'flavors' of it with a suffix. To prevent
-              unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89-XYZ'.
+              unnecessary translation the commonly used value 'ETRS89' is allowed as equivelant for the INSPIRE value 'ETRS89 Geodetic (EPSG&colon;4258)'.
             type: string
           locationNameSpace?:
             type: LocationNameSpace
@@ -397,7 +402,7 @@ types:
 
   Position:
     description: |
-      A location specified in an array with longitude, lattitude and optional altitude.
+      A location specified in an array with longitude, lattitude and optional altitude. If the specified crsName refers to a metric system, the position is in x, y, z.
     type: Double[]
     minItems: 2
     maxItems: 3
@@ -510,7 +515,7 @@ types:
         description: Realization index.
         type: number
       intervalLength?:
-        description: Specifies the interval between events in the time series. If present and set to 'null', the time series is non-equidistant. TODO&colon; decide on options for units.
+        description: Specifies the interval between events in the time series in seconds. If present and set to 'null', the time series is non-equidistant.
         type: number
       valueType?:
         type: ValueType
