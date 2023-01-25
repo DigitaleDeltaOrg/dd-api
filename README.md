@@ -34,7 +34,7 @@ The OPERational extension ["DD-OPER-API"](oper/dd-oper.v202.raml) is an extensio
 
 Additional documentation can be found on [https://digitaledeltaorg.github.io](https://digitaledeltaorg.github.io), including readable version of the specification (HTML generated from the RAML):
 * [dd.v202.html](https://raw.githubusercontent.com/DigitaleDeltaOrg/dd-api/master/dd.v202.html) (general DD-API)
-* [dd-oper.v202.html]https://raw.githubusercontent.com/DigitaleDeltaOrg/dd-api/master/dd-oper.v202.html) (DD-OPER extension)
+* [dd-oper.v202.html](https://raw.githubusercontent.com/DigitaleDeltaOrg/dd-api/master/dd-oper.v202.html) (DD-OPER extension)
 
 ## Implementations
 The [Current Implementations](https://github.com/DigitaleDeltaOrg/dd-api/wiki/Current-implementations) contains the most recent list of implementations of the Digital Delta Specifications.
